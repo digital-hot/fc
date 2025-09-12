@@ -1,10 +1,10 @@
-import { AppState, elements } from 'src/scripts/state/AppState.js';
-import { initializeTelegramWebApp } from 'src/scripts/services/telegram.service.js';
-import { loadProducts, submitOrder, fetchUserData } from 'src/scripts/services/api.service.js';
-import { updateUI } from 'src/scripts/ui/uiManager.js';
-import { handleProductClick } from 'src/scripts/handlers/productHandler.js';
-import { openOrderForm, closeOrderForm, renderOrderSummary, toggleAddressField } from 'src/scripts/components/OrderForm.js';
-import { toggleTheme } from 'src/scripts/components/ThemeToggle.js';
+import { AppState, elements } from '/src/scripts/state/AppState.js';
+import { initializeTelegramWebApp } from '/src/scripts/services/telegram.service.js';
+import { loadProducts, submitOrder, fetchUserData } from '/src/scripts/services/api.service.js';
+import { updateUI } from '/src/scripts/ui/uiManager.js';
+import { handleProductClick } from '/src/scripts/handlers/productHandler.js';
+import { openOrderForm, closeOrderForm, renderOrderSummary, toggleAddressField } from '/src/scripts/components/OrderForm.js';
+import { toggleTheme } from '/src/scripts/components/ThemeToggle.js';
 
 function initEventListeners() {
     // Theme

@@ -1,4 +1,4 @@
-import { AppState, elements } from "src/scripts/state/AppState.js";
+import { AppState, elements } from "/src/scripts/state/AppState.js";
 
 export function validateOrderForm() {
     elements.formError.textContent = "";

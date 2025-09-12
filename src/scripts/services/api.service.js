@@ -1,8 +1,8 @@
-import { AppState, elements } from 'src/scripts/state/AppState.js';
-import { validateOrderForm } from 'src/scripts/utils/validators.js';
+import { AppState, elements } from '/src/scripts/state/AppState.js';
+import { validateOrderForm } from '/src/scripts/utils/validators.js';
 
 const API_URLS = {
-    PRODUCTS: 'data/products.json', // Path relative to index.html
+    PRODUCTS: '/data/products.json', // Path relative to index.html
     USER_DATA: 'https://urfine.com.ua/fct/hs/bots/user/',
     SUBMIT_ORDER: 'https://urfine.com.ua/fct/hs/bots/order/'
 };

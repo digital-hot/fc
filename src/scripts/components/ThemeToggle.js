@@ -1,4 +1,4 @@
-import { AppState, elements } from 'src/scripts/state/AppState.js';
+import { AppState, elements } from '/src/scripts/state/AppState.js';
 
 function applyTheme() {
     document.documentElement.setAttribute('data-theme', AppState.theme);
