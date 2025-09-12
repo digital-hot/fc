@@ -1,4 +1,4 @@
-import { updateCart } from '/src/scripts/components/Cart.js';
+import { updateCart } from 'src/scripts/components/Cart.js';
 
 export function handleProductClick(e) {
     const card = e.target.closest('.product-card');

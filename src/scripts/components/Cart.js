@@ -1,5 +1,5 @@
-import { AppState } from '/src/scripts/state/AppState.js';
-import { updateUI } from '/src/scripts/ui/uiManager.js';
+import { AppState } from 'src/scripts/state/AppState.js';
+import { updateUI } from 'src/scripts/ui/uiManager.js';
 
 export function updateCart(productId, action) {
     const product = AppState.products.find(p => p.id == productId);
