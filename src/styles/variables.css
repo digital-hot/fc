@@ -1,0 +1,42 @@
+:root {
+    /* Warm, artisanal color palette inspired by the brand image */
+    --primary-color: #D4935A;
+    --primary-hover: #C17A3A;
+    --secondary-color: #E8B17A;
+    --accent-color: #F2C98A;
+    --warm-orange: #E67E22;
+    --soft-peach: #F5DEB3;
+    --error-color: #E74C3C;
+    --warning-color: #F39C12;
+    --success-color: #27AE60;
+
+    --bg-primary: #FFF9F4;
+    --bg-secondary: #F8F3ED;
+    --bg-tertiary: #F0E6D6;
+    --bg-card: #FFFFFF;
+    --text-primary: #8B4513;
+    --text-secondary: #A0522D;
+    --text-muted: #CD853F;
+    --border-color: #E6D5C7;
+
+    /* Organic shadows and effects */
+    --shadow-soft: 0 4px 20px rgba(212, 147, 90, 0.15);
+    --shadow-medium: 0 8px 30px rgba(212, 147, 90, 0.2);
+    --shadow-strong: 0 15px 40px rgba(212, 147, 90, 0.25);
+
+    /* Warm gradients */
+    --gradient-primary: linear-gradient(135deg, #F2C98A 0%, #D4935A 50%, #C17A3A 100%);
+    --gradient-secondary: radial-gradient(circle at center, #F5DEB3 0%, #E8B17A 100%);
+    --gradient-warm: linear-gradient(45deg, #FFE4B5 0%, #DEB887 50%, #D2B48C 100%);
+    --gradient-overlay: linear-gradient(135deg, rgba(212, 147, 90, 0.1) 0%, rgba(245, 222, 179, 0.1) 100%);
+
+    --blur-soft: blur(8px);
+    --blur-medium: blur(16px);
+
+    --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --border-radius-soft: 20px;
+    --border-radius-medium: 16px;
+    --border-radius-large: 24px;
+}
