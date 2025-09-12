@@ -1,0 +1,1638 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Family Cheese - Натуральні сири</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Warm, artisanal color palette inspired by the brand image */
+            --primary-color: #D4935A;
+            --primary-hover: #C17A3A;
+            --secondary-color: #E8B17A;
+            --accent-color: #F2C98A;
+            --warm-orange: #E67E22;
+            --soft-peach: #F5DEB3;
+            --error-color: #E74C3C;
+            --warning-color: #F39C12;
+            --success-color: #27AE60;
+
+            --bg-primary: #FFF9F4;
+            --bg-secondary: #F8F3ED;
+            --bg-tertiary: #F0E6D6;
+            --bg-card: #FFFFFF;
+            --text-primary: #8B4513;
+            --text-secondary: #A0522D;
+            --text-muted: #CD853F;
+            --border-color: #E6D5C7;
+
+            /* Organic shadows and effects */
+            --shadow-soft: 0 4px 20px rgba(212, 147, 90, 0.15);
+            --shadow-medium: 0 8px 30px rgba(212, 147, 90, 0.2);
+            --shadow-strong: 0 15px 40px rgba(212, 147, 90, 0.25);
+
+            /* Warm gradients */
+            --gradient-primary: linear-gradient(135deg, #F2C98A 0%, #D4935A 50%, #C17A3A 100%);
+            --gradient-secondary: radial-gradient(circle at center, #F5DEB3 0%, #E8B17A 100%);
+            --gradient-warm: linear-gradient(45deg, #FFE4B5 0%, #DEB887 50%, #D2B48C 100%);
+            --gradient-overlay: linear-gradient(135deg, rgba(212, 147, 90, 0.1) 0%, rgba(245, 222, 179, 0.1) 100%);
+
+            --blur-soft: blur(8px);
+            --blur-medium: blur(16px);
+
+            --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+            --border-radius-soft: 20px;
+            --border-radius-medium: 16px;
+            --border-radius-large: 24px;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #2C1810;
+            --bg-secondary: #3D2318;
+            --bg-tertiary: #4A2A1C;
+            --bg-card: #3D2318;
+            --text-primary: #F5DEB3;
+            --text-secondary: #E8B17A;
+            --text-muted: #D4935A;
+            --border-color: #5D3A24;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: clamp(14px, 1.5vw, 18px);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color var(--transition-smooth), color var(--transition-smooth);
+            position: relative;
+        }
+
+        /* Organic background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(245, 222, 179, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(232, 177, 122, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(212, 147, 90, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Header with organic styling */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 249, 244, 0.95);
+            backdrop-filter: var(--blur-soft);
+            border-bottom: 2px solid var(--border-color);
+            padding: 1.2rem 0;
+            transition: all var(--transition-smooth);
+        }
+
+        [data-theme="dark"] .header {
+            background: rgba(44, 24, 16, 0.95);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: 'Comfortaa', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(212, 147, 90, 0.3);
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .theme-toggle,
+        .cart-badge {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-bounce);
+            font-size: 1.3rem;
+            position: relative;
+            /* overflow: hidden; */
+        }
+
+        .theme-toggle {
+            background: var(--gradient-secondary);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.15) rotate(15deg);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .cart-badge {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .cart-badge:hover {
+            transform: scale(1.15);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--error-color);
+            color: white;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            animation: heartbeat 2s infinite;
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            75% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Search section with organic styling */
+        .search-filters {
+            max-width: 1200px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.5rem 1.5rem 1.5rem 4rem;
+            border: 3px solid var(--border-color);
+            border-radius: var(--border-radius-large);
+            font-size: 1.1rem;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            transition: all var(--transition-smooth);
+            box-shadow: var(--shadow-soft);
+            font-family: 'Comfortaa', sans-serif;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(212, 147, 90, 0.2), var(--shadow-medium);
+            transform: translateY(-2px);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-size: 1.4rem;
+        }
+
+        /* Container with enhanced spacing */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 3rem;
+        }
+
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            font-family: 'Comfortaa', sans-serif;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1.5s ease-in-out infinite;
+            margin-right: 1.5rem;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Enhanced product grid */
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius-large);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all var(--transition-smooth);
+            position: relative;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-strong);
+            border-color: rgba(212, 147, 90, 0.3);
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-overlay);
+            opacity: 0;
+            transition: opacity var(--transition-smooth);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .badge {
+            position: absolute;
+            top: 1.2rem;
+            left: 1.2rem;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: var(--border-radius-medium);
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 3;
+            box-shadow: var(--shadow-soft);
+            font-family: 'Comfortaa', sans-serif;
+        }
+
+        .gallery {
+            position: relative;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all var(--transition-smooth);
+            filter: brightness(1.05) saturate(1.1);
+        }
+
+        .product-card:hover .gallery-image {
+            transform: scale(1.15);
+            filter: brightness(1.1) saturate(1.2);
+        }
+
+        .product-info {
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .title {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+            color: var(--text-primary);
+        }
+
+        .weight {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .weight i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .price-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .current-price {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-shadow: 0 1px 2px rgba(212, 147, 90, 0.2);
+        }
+
+        .original-price {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            opacity: 0.8;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .add-to-cart-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            transition: all var(--transition-bounce);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-to-cart-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all var(--transition-smooth);
+        }
+
+        .add-to-cart-btn:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: scale(1.2) rotate(15deg);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--gradient-secondary);
+            border-radius: var(--border-radius-medium);
+            padding: 0.8rem 1.2rem;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .quantity-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            transition: all var(--transition-bounce);
+            box-shadow: 0 2px 8px rgba(212, 147, 90, 0.3);
+        }
+
+        .quantity-btn:hover {
+            background: var(--primary-hover);
+            transform: scale(1.15);
+        }
+
+        .quantity {
+            font-family: 'Comfortaa', sans-serif;
+            font-weight: 700;
+            min-width: 32px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .details-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all var(--transition-smooth);
+            padding: 0.5rem;
+            border-radius: var(--border-radius-soft);
+        }
+
+        .details-btn:hover {
+            background: rgba(212, 147, 90, 0.1);
+            color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .details-btn i {
+            margin-right: 0.5rem;
+        }
+
+        /* Enhanced modal styling */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(139, 69, 19, 0.7);
+            backdrop-filter: var(--blur-medium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-smooth);
+            padding: 2rem;
+        }
+
+        .modal-backdrop.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: var(--border-radius-large);
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-strong);
+            transform: scale(0.8) translateY(50px);
+            transition: all var(--transition-bounce);
+            border: 2px solid var(--border-color);
+        }
+
+        .modal-backdrop.visible .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+            border-bottom: 2px solid var(--border-color);
+            background: var(--gradient-secondary);
+        }
+
+        .modal-title {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .modal-close {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            transition: all var(--transition-bounce);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .modal-close:hover {
+            background: var(--error-color);
+            color: white;
+            transform: scale(1.15) rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 2rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        /* Enhanced order form */
+        .order-form {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border-top-left-radius: var(--border-radius-large);
+            border-top-right-radius: var(--border-radius-large);
+            max-height: 90vh;
+            overflow-y: auto;
+            z-index: 1500;
+            transform: translateY(100%);
+            transition: transform var(--transition-smooth);
+            box-shadow: 0 -10px 40px rgba(212, 147, 90, 0.3);
+            border-top: 3px solid var(--primary-color);
+        }
+
+        .order-form.visible {
+            transform: translateY(0);
+        }
+
+        .order-form-content {
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .order-form-close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            transition: all var(--transition-bounce);
+            z-index: 10;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .order-form-close-btn:hover {
+            background: var(--error-color);
+            color: white;
+            transform: scale(1.15) rotate(90deg);
+        }
+
+        .order-form h2 {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        /* Info sections with enhanced styling */
+        .info-section {
+            padding: 4rem 0;
+            background: var(--bg-card);
+            margin-top: 3rem;
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow-soft);
+        }
+
+        #reviews {
+            background: var(--bg-secondary);
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow-medium);
+            transition: all var(--transition-smooth);
+        }
+
+        .about-image img:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .about-text h3 {
+            font-family: 'Comfortaa', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow-soft);
+            border: 2px solid var(--border-color);
+            transition: all var(--transition-smooth);
+        }
+
+        [data-theme="dark"] .review-card {
+            background: var(--bg-tertiary);
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .review-header .fa-user-circle {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+        }
+
+        .reviewer-name {
+            font-family: 'Comfortaa', sans-serif;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+
+        .review-stars {
+            color: var(--warning-color);
+            font-size: 1.1rem;
+        }
+
+        .review-text {
+            color: var(--text-secondary);
+            font-style: italic;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Enhanced form elements */
+        .form-group input,
+        .address-field input {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-medium);
+            font-size: 1rem;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all var(--transition-smooth);
+            font-family: 'Comfortaa', sans-serif;
+        }
+
+        .form-group input:focus,
+        .address-field input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(212, 147, 90, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .product-list {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            .search-filters,
+            .container {
+                padding: 0 1rem 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-list {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* --- СТИЛІ ДЛЯ ФОРМИ ЗАМОВЛЕННЯ --- */
+
+        .change-order-btn {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius-medium);
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: all var(--transition-smooth);
+            font-weight: 600;
+        }
+
+        .change-order-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius-medium);
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .summary-item-img {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--border-radius-medium);
+            object-fit: cover;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .summary-item-details {
+            flex: 1;
+        }
+
+        .summary-item-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .summary-item-quantity {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .summary-item-price {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .summary-totals {
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius-large);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .summary-totals>div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+        }
+
+        .total-price {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            border-top: 2px solid var(--border-color);
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .total-discount {
+            color: var(--success-color);
+            font-weight: 600;
+        }
+
+        .delivery-options {
+            margin-bottom: 2rem;
+        }
+
+        .delivery-option {
+            display: flex;
+            align-items: center;
+            padding: 1.2rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-medium);
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all var(--transition-smooth);
+        }
+
+        .delivery-option:hover {
+            border-color: var(--primary-color);
+            background: rgba(212, 147, 90, 0.05);
+        }
+
+        .delivery-option input[type="radio"] {
+            margin-right: 1rem;
+            transform: scale(1.2);
+            accent-color: var(--primary-color);
+        }
+
+        .delivery-option label {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .delivery-option .price {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .address-field {
+            margin-bottom: 2rem;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all var(--transition-smooth);
+        }
+
+        .address-field.visible {
+            opacity: 1;
+            max-height: 100px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .error {
+            color: var(--error-color);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .order-notice {
+            background: rgba(212, 147, 90, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-medium);
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .order-notice i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-cheese"></i>
+                Family Cheese
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" id="theme-toggle" title="Змінити тему">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+
+                <button class="cart-badge" id="cart-badge" title="Кошик">
+                    <span class="cart-count hidden" id="cart-count">0</span>
+                    <i class="fas fa-shopping-cart"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search and Filters -->
+    <section class="search-filters">
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Пошук сирів..." id="search-input">
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            Завантаження каталогу...
+        </div>
+        <div class="product-list" id="product-list"></div>
+    </div>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="info-section">
+        <div class="container">
+            <h2 class="section-title">Відгуки наших клієнтів</h2>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-header">
+                        <i class="fas fa-user-circle"></i>
+                        <div>
+                            <p class="reviewer-name">Олена П.</p>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"Неймовірно смачний сир! Гауда просто тане в роті. Відчувається, що продукт
+                        натуральний і зроблений з душею. Обов'язково замовлю ще!"</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <i class="fas fa-user-circle"></i>
+                        <div>
+                            <p class="reviewer-name">Андрій</p>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"Замовляв доставку по Обухову, все привезли швидко. Сир свіжий, ароматний.
+                        Трохи дорожче, ніж в магазині, але якість того варта."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about-us" class="info-section">
+        <div class="container">
+            <h2 class="section-title">Про Нас</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="f/pro_nas.png" alt="Наша сироварня">
+                </div>
+                <div class="about-text">
+                    <h3>Сімейна справа з любов'ю до сиру</h3>
+                    <p>
+                        <strong>Family Cheese</strong> — це невелика сімейна сироварня, де ми створюємо натуральні сири
+                        за традиційними рецептами. Кожна головка сиру — це результат ручної праці, якісного молока та
+                        нашої пристрасті до сироваріння. Ми віримо, що найкращий продукт народжується лише з найкращих
+                        інгредієнтів та дбайливого ставлення.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail Modal -->
+    <div class="modal-backdrop" id="description-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"></h2>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Order Form -->
+    <div id="order-form" class="order-form">
+        <div class="order-form-content">
+            <h2>Ваше замовлення</h2>
+            <button class="order-form-close-btn" id="order-form-close-btn" title="Закрити">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="order-summary"></div>
+            <button class="change-order-btn">
+                <i class="fas fa-edit"></i>
+                Змінити замовлення
+            </button>
+
+            <div class="delivery-options">
+                <h2>Спосіб доставки</h2>
+                <div class="delivery-option">
+                    <input type="radio" id="pickup" name="delivery" value="0" data-title="м. Обухів, вул. Лукавиця, 19"
+                        checked>
+                    <label for="pickup">
+                        <b>Самовивіз</b><br>
+                        м. Обухів, вул. Лукавиця, 19
+                    </label>
+                </div>
+                <div class="delivery-option">
+                    <input type="radio" id="obukhiv-delivery" name="delivery" value="50"
+                        data-title="Доставка по м. Обухів">
+                    <label for="obukhiv-delivery">
+                        <b>Доставка по м. Обухів</b>
+                    </label>
+                    <span class="price">50 грн</span>
+                </div>
+                <div class="delivery-option">
+                    <input type="radio" id="nova-poshta" name="delivery" value="0" data-title="Нова Пошта">
+                    <label for="nova-poshta">
+                        <b>Нова Пошта</b><br>
+                        За тарифами перевізника
+                    </label>
+                </div>
+            </div>
+
+            <div id="address-field-container" class="address-field">
+                <input type="text" id="address-input" placeholder="Введіть вашу адресу або № відділення">
+            </div>
+
+            <h2>Контактні дані</h2>
+            <p class="error" id="form-error"></p>
+            <div class="form-group">
+                <input type="text" id="user-name" placeholder="Ім'я та Прізвище">
+            </div>
+            <div class="form-group">
+                <input type="tel" id="user-phone" placeholder="0 67 XXX XX XX">
+            </div>
+
+            <div class="order-notice">
+                <i class="fas fa-info-circle"></i>
+                Фінальна сума замовлення може дещо змінитися після зважування товару.
+            </div>
+            <div class="order-notice">
+                <i class="fas fa-credit-card"></i>
+                Оплата після отримання замовлення.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', initApp);
+
+        // --- Глобальний стан та елементи DOM ---
+        let tg; // Об'єкт Telegram WebApp
+
+        const AppState = {
+            products: [],
+            cart: {},
+            isFormVisible: false,
+            theme: localStorage.getItem('theme') || 'light'
+        };
+
+        const elements = {
+            productList: document.getElementById('product-list'),
+            modal: document.getElementById('description-modal'),
+            orderForm: document.getElementById('order-form'),
+            orderFormCloseBtn: document.getElementById('order-form-close-btn'),
+            changeOrderBtn: document.querySelector('.change-order-btn'),
+            deliveryOptions: document.querySelectorAll('input[name="delivery"]'),
+            addressContainer: document.getElementById('address-field-container'),
+            loading: document.getElementById('loading'),
+            searchInput: document.getElementById('search-input'),
+            themeToggle: document.getElementById('theme-toggle'),
+            cartBadge: document.getElementById('cart-badge'),
+            cartCount: document.getElementById('cart-count')
+        };
+
+        // --- Ініціалізація додатку ---
+        function initApp() {
+            console.log('🚀 Initializing Family Cheese app...');
+            initializeTelegramWebApp();
+            initTheme();
+            initEventListeners();
+            fetchUserData("https://urfine.com.ua/fct/hs/bots/user/");
+            loadProducts().then(() => {
+                updateUI();
+                console.log('✅ App initialized successfully');
+            });
+        }
+
+        function initializeTelegramWebApp() {
+
+
+            try {
+                tg = window.Telegram?.WebApp;
+                if (tg) {
+                    tg.ready();
+                    tg.expand();
+
+                } else {
+                    throw new Error("Telegram WebApp is not available");
+                }
+            } catch (e) {
+                console.warn(e.message);
+                tg = {
+                    initData: 'dev_mode_init_data',
+                    initDataUnsafe: { user: { id: 'demo_user' } },
+                    MainButton: {
+                        setText: (text) => console.log('TG MainButton Text:', text),
+                        show: () => console.log('TG MainButton: Show'),
+                        hide: () => console.log('TG MainButton: Hide')
+                    },
+                    BackButton: {
+                        show: () => console.log('TG BackButton: Show'),
+                        hide: () => console.log('TG BackButton: Hide')
+                    },
+                    onEvent: (event, callback) => console.log('TG Event Registered:', event),
+                    showAlert: (message) => alert(`[Telegram Alert]: ${message}`),
+                    close: () => console.log('TG Close'),
+                    ready: () => { },
+                    expand: () => { }
+                };
+            }
+        }
+
+        // --- Керування темою ---
+        function initTheme() {
+            document.documentElement.setAttribute('data-theme', AppState.theme);
+            const icon = elements.themeToggle.querySelector('i');
+            icon.className = AppState.theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        function toggleTheme() {
+            AppState.theme = AppState.theme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('theme', AppState.theme);
+            initTheme();
+        }
+
+        // --- Робота з даними ---
+        async function loadProducts() {
+            elements.loading.classList.remove('hidden');
+            try {
+                await new Promise(resolve => setTimeout(resolve, 500));
+                const response = await fetch('products.json');
+                if (!response.ok) throw new Error('Network response was not ok');
+                AppState.products = await response.json();
+            } catch (error) {
+                console.error('Failed to load products, using mock data:', error);
+                AppState.products = generateMockProducts();
+            } finally {
+                elements.loading.classList.add('hidden');
+                renderProducts();
+            }
+        }
+
+        async function fetchUserData(url) {
+            const nameInput = document.getElementById('user-name');
+            const phoneInput = document.getElementById('user-phone');
+            const addressInput = document.getElementById('address-input');
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Telegram-Init-Data': tg.initData },
+                    body: JSON.stringify({ initData: tg.initData, userId: tg.initDataUnsafe.user.id })
+                });
+                if (!response.ok) throw new Error(`Помилка мережі: ${response.status}`);
+                const data = await response.json();
+                nameInput.value = nameInput.value || data.name || '';
+                phoneInput.value = phoneInput.value || data.phone || '';
+                addressInput.value = addressInput.value || data.address || '';
+            } catch (error) {
+                console.error('Не вдалося отримати дані користувача:', error.message);
+            }
+        }
+
+        function filterProducts() {
+            const query = elements.searchInput.value.toLowerCase();
+            return AppState.products.filter(p =>
+                p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query)
+            );
+        }
+
+        // --- Рендеринг ---
+        function renderProducts() {
+            const filteredProducts = filterProducts();
+            elements.productList.innerHTML = "";
+            if (filteredProducts.length === 0) {
+                elements.productList.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 2rem;"><h3>Товари не знайдено</h3></div>`;
+                return;
+            }
+            filteredProducts.forEach(product => {
+                elements.productList.appendChild(createProductElement(product));
+            });
+        }
+
+        function createProductElement(product) {
+            const card = document.createElement("div");
+            card.className = "product-card";
+            card.dataset.id = product.id;
+            const priceHTML = product.original_price
+                ? `<span class="current-price">${product.price.toFixed(2)} грн</span><span class="original-price">${product.original_price.toFixed(2)} грн</span>`
+                : `<span class="current-price">${product.price.toFixed(2)} грн</span>`;
+            card.innerHTML = `
+                <div class="gallery"><img src="${product.images[0]}" alt="${product.name}" class="gallery-image"></div>
+                <div class="product-info">
+                    <div class="title">${product.name}</div>
+                    <div class="weight"><i class="fas fa-weight"></i> ${product.weight}</div>
+                    <div class="price-container">${priceHTML}</div>
+                    <div class="card-footer">
+                        <button class="add-to-cart-btn" title="Додати в кошик"><i class="fas fa-plus"></i></button>
+                        <div class="quantity-control" style="display: none;">
+                            <button class="quantity-btn" data-action="decrease"><i class="fas fa-minus"></i></button>
+                            <span class="quantity">1</span>
+                            <button class="quantity-btn" data-action="increase"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <button class="details-btn" data-title="${product.name}" data-description="${product.description}">
+                            <i class="fas fa-info-circle"></i> Детальніше
+                        </button>
+                    </div>
+                </div>`;
+            return card;
+        }
+
+        function updateUI() {
+            const totalItems = Object.values(AppState.cart).reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = Object.values(AppState.cart).reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+            elements.cartCount.textContent = totalItems;
+            elements.cartCount.classList.toggle('hidden', totalItems === 0);
+
+            document.querySelectorAll('.product-card').forEach(card => {
+                const id = card.dataset.id;
+                const addBtn = card.querySelector('.add-to-cart-btn');
+                const quantityControl = card.querySelector('.quantity-control');
+                if (AppState.cart[id]) {
+                    addBtn.style.display = 'none';
+                    quantityControl.style.display = 'flex';
+                    quantityControl.querySelector('.quantity').textContent = AppState.cart[id].quantity;
+                } else {
+                    addBtn.style.display = 'flex';
+                    quantityControl.style.display = 'none';
+                }
+            });
+
+            if (totalPrice > 0) {
+                const buttonText = AppState.isFormVisible ? 'Надіслати замовлення' : `Переглянути кошик (${totalItems})`;// - ${totalPrice.toFixed(2)} грн
+
+                tg.MainButton.setText(buttonText);
+                tg.MainButton.setParams({
+                    color: '#D4935A',
+                    text_color: '#FFFFFF'
+                });
+                tg.MainButton.show();
+            } else {
+                tg.MainButton.hide();
+                if (AppState.isFormVisible) closeOrderForm();
+            }
+        }
+
+        // --- Керування кошиком ---
+        function updateCart(productId, action) {
+            const product = AppState.products.find(p => p.id == productId);
+            if (!product) return;
+            if (action === 'add' && !AppState.cart[productId]) {
+                AppState.cart[productId] = { name: product.name, price: product.price, quantity: 1 };
+            } else if (action === 'increase' && AppState.cart[productId]) {
+                AppState.cart[productId].quantity++;
+            } else if (action === 'decrease' && AppState.cart[productId]) {
+                AppState.cart[productId].quantity--;
+                if (AppState.cart[productId].quantity <= 0) delete AppState.cart[productId];
+            }
+            updateUI();
+        }
+
+        // --- Форма замовлення ---
+        function openOrderForm() {
+            AppState.isFormVisible = true;
+            renderOrderSummary();
+            toggleAddressField();
+            elements.orderForm.classList.add("visible");
+            tg.BackButton.show();
+            updateUI();
+        }
+
+        function closeOrderForm() {
+            AppState.isFormVisible = false;
+            elements.orderForm.classList.remove("visible");
+            tg.BackButton.hide();
+            updateUI();
+        }
+
+        function renderOrderSummary() {
+            const summaryContainer = document.getElementById("order-summary");
+            if (!summaryContainer) return;
+
+            let itemsHTML = "";
+            let productsTotal = 0;
+            let totalDiscount = 0;
+
+            for (const id in AppState.cart) {
+                const product = AppState.products.find(p => p.id == id);
+                const item = AppState.cart[id];
+                if (!product) continue;
+
+                const itemTotalPrice = item.price * item.quantity;
+                productsTotal += itemTotalPrice;
+
+                if (product.original_price) {
+                    totalDiscount += (product.original_price - item.price) * item.quantity;
+                }
+
+                itemsHTML += `
+                    <div class="summary-item">
+                        <img src="${product.images[0]}" alt="${item.name}" class="summary-item-img">
+                        <div class="summary-item-details">
+                            <div class="summary-item-name">${item.name}</div>
+                            <div class="summary-item-quantity">${item.quantity} x ${item.price.toFixed(2)} грн</div>
+                        </div>
+                        <div class="summary-item-price">${itemTotalPrice.toFixed(2)} грн</div>
+                    </div>`;
+            }
+
+            const deliveryCost = parseInt(document.querySelector('input[name="delivery"]:checked').value, 10) || 0;
+            const finalTotal = productsTotal + deliveryCost;
+
+            const totalsHTML = `
+                <div class="summary-totals">
+                    ${totalDiscount > 0 ? `<div class="total-discount"><span><i class="fas fa-tags"></i> Ваша знижка:</span><span>-${totalDiscount.toFixed(2)} грн</span></div>` : ""}
+                    ${deliveryCost > 0 ? `<div><span><i class="fas fa-truck"></i> Доставка:</span><span>${deliveryCost.toFixed(2)} грн</span></div>` : ""}
+                    <div class="total-price">
+                        <span><i class="fas fa-receipt"></i> Всього до сплати:</span>
+                        <span>${finalTotal.toFixed(2)} грн</span>
+                    </div>
+                </div>`;
+
+            summaryContainer.innerHTML = itemsHTML + totalsHTML;
+        }
+
+        function toggleAddressField() {
+            const selectedDeliveryId = document.querySelector('input[name="delivery"]:checked').id;
+            const isAddressNeeded = selectedDeliveryId === "obukhiv-delivery" || selectedDeliveryId === "nova-poshta";
+            elements.addressContainer.classList.toggle("visible", isAddressNeeded);
+        }
+
+        // --- Обробники подій ---
+        function initEventListeners() {
+            elements.themeToggle.addEventListener('click', toggleTheme);
+            elements.cartBadge.addEventListener('click', () => { if (Object.keys(AppState.cart).length > 0) openOrderForm(); });
+            elements.searchInput.addEventListener('input', renderProducts);
+            elements.productList.addEventListener('click', handleProductClick);
+            elements.changeOrderBtn?.addEventListener('click', closeOrderForm);
+            elements.deliveryOptions.forEach(option => {
+                option.addEventListener('change', () => { renderOrderSummary(); toggleAddressField(); });
+            });
+            tg.onEvent('backButtonClicked', closeOrderForm);
+            tg.onEvent('mainButtonClicked', handleMainButtonClick);
+            elements.orderFormCloseBtn?.addEventListener('click', closeOrderForm);
+        }
+
+        function handleProductClick(e) {
+            const card = e.target.closest('.product-card');
+            if (!card) return;
+            const productId = card.dataset.id;
+            if (e.target.closest('.add-to-cart-btn')) {
+                updateCart(productId, 'add');
+            } else if (e.target.closest('.quantity-btn')) {
+                const action = e.target.closest('.quantity-btn').dataset.action;
+                updateCart(productId, action);
+            }
+        }
+
+        function handleMainButtonClick() {
+            if (!AppState.isFormVisible) openOrderForm();
+            else submitOrder();
+        }
+
+        function submitOrder() {
+            const nameInput = document.getElementById("user-name");
+            const phoneInput = document.getElementById("user-phone");
+            const addressInput = document.getElementById("address-input");
+            const formError = document.getElementById("form-error");
+            formError.textContent = "";
+
+            if (nameInput.value.trim().length < 3) {
+                formError.textContent = "Введіть коректне ім'я та прізвище.";
+                nameInput.focus();
+                return;
+            }
+
+            if (!/^\+?3?8?(0\d{9})$/.test(phoneInput.value.replace(/\s/g, ""))) {
+                formError.textContent = "Введіть телефон у форматі 0XXXXXXXXX.";
+                phoneInput.focus();
+                return;
+            }
+
+            if (elements.addressContainer.classList.contains("visible") && addressInput.value.trim().length < 5) {
+                formError.textContent = "Будь ласка, введіть адресу або № відділення.";
+                addressInput.focus();
+                return;
+            }
+
+            let rawTotalPrice = 0;
+            let rawTotalDiscount = 0;
+            const cartAsArray = Object.keys(AppState.cart).map(id => {
+                const product = AppState.products.find(p => p.id == id);
+                const item = AppState.cart[id];
+                rawTotalPrice += item.price * item.quantity;
+                if (product && product.original_price) {
+                    rawTotalDiscount += (product.original_price - item.price) * item.quantity;
+                }
+                return { id, ...item };
+            });
+
+            const selectedDelivery = document.querySelector('input[name="delivery"]:checked');
+            const deliveryData = {
+                id: selectedDelivery.id,
+                title: selectedDelivery.dataset.title,
+                cost: parseInt(selectedDelivery.value, 10) || 0,
+                address: addressInput.value
+            };
+
+            const orderData = {
+                userId: tg.initDataUnsafe.user.id,
+                user: { name: nameInput.value, phone: phoneInput.value },
+                initData: tg.initData,
+                cart: cartAsArray,
+                totalPrice: (rawTotalPrice + deliveryData.cost).toFixed(2),
+                totalDiscount: rawTotalDiscount.toFixed(2),
+                delivery: deliveryData
+            };
+
+            postOrder("https://urfine.com.ua/fct/hs/bots/order", orderData);
+            tg.close();
+        }
+
+        async function postOrder(url, data) {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (!response.ok) {
+                    throw new Error(`Помилка відправки замовлення: ${response.status}`);
+                }
+                console.log('Замовлення успішно відправлено!');
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+
+        // --- Допоміжні функції ---
+        function generateMockProducts() {
+            return [
+                { "id": 1, "name": "Гауда класична", "price": 245.5, "original_price": 290, "weight": "~ 300г", "description": "Класичний голландський сир з насиченим смаком та ароматом.", "images": ["https://images.unsplash.com/photo-1552767059-ce182ead6c1b?w=400&h=300&fit=crop"] },
+                { "id": 2, "name": "Бри французький", "price": 320, "weight": "~ 200г", "description": "М'який французький сир з білою цвіллю.", "images": ["https://images.unsplash.com/photo-1571197919795-08c56b3bb84f?w=400&h=300&fit=crop"] },
+                { "id": 3, "name": "Моцарелла свіжа", "price": 180, "weight": "~ 250г", "description": "Свіжа італійська моцарелла.", "images": ["https://images.unsplash.com/photo-1571212515416-ef06e24dd40e?w=400&h=300&fit=crop"] },
+                { "id": 4, "name": "Чеддер витриманий", "price": 280, "original_price": 320, "weight": "~ 250г", "description": "Англійський чеддер з насиченим смаком.", "images": ["https://images.unsplash.com/photo-1571212515416-ef06e24dd40e?w=400&h=300&fit=crop"] },
+                { "id": 5, "name": "Камамбер м'який", "price": 350, "weight": "~ 200г", "description": "Французький м'який сир з грибним ароматом.", "images": ["https://images.unsplash.com/photo-1552767059-ce182ead6c1b?w=400&h=300&fit=crop"] }
+            ];
+        }
+    </script>
+</body>
+
+</html>
