@@ -1,5 +1,5 @@
-import { AppState, elements } from '../state/AppState.js';
-import { updateUI } from '../ui/uiManager.js';
+import { AppState, elements } from '/src/scripts/state/AppState.js';
+import { updateUI } from '/src/scripts/ui/uiManager.js';
 
 export function openOrderForm() {
     AppState.isFormVisible = true;
