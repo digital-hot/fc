@@ -1,4 +1,4 @@
-import { AppState } from '/src/scripts/state/AppState.js';
+import { AppState } from 'src/scripts/state/AppState.js';
 
 export function initializeTelegramWebApp() {
     try {
