@@ -1,5 +1,5 @@
-import { AppState, elements } from '/src/scripts/state/AppState.js';
-import { createProductElement } from '/src/scripts/components/ProductCard.js';
+import { AppState, elements } from '../state/AppState.js';
+import { createProductElement } from '../components/ProductCard.js';
 
 function renderProducts() {
     const query = elements.searchInput.value.toLowerCase();
