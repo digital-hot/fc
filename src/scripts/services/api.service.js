@@ -72,7 +72,8 @@ async function postOrder(data) {
 export function submitOrder() {
     const orderData = validateOrderForm();
     if (!orderData) return; // Validation failed
-
+    AppState.tg.showAlert('Ваше замовлення прийнято! Очінкуйте на повідомлення в telegram.');
+    AppState.tg.close();
     postOrder(orderData).then(() => {
         AppState.tg.close();
     });
