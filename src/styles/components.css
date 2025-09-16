@@ -20,7 +20,7 @@
     justify-content: space-between;
     align-items: center;
 }
-.logo {
+/* .logo {
     display: flex;
     align-items: center;
     gap: 0.8rem;
@@ -36,7 +36,7 @@
 .logo i {
     font-size: 2rem;
     color: var(--primary-color);
-}
+} */
 .header-actions {
     display: flex;
     align-items: center;
@@ -98,12 +98,12 @@
     75% { transform: scale(1.1); }
 }
 
-/* Search */
-.search-filters {
+Search
+/* .search-filters {
     max-width: 1200px;
     margin: 2.5rem auto;
     padding: 0 1.5rem;
-}
+} */
 .search-container {
     position: relative;
     margin-bottom: 2rem;
