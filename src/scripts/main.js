@@ -8,7 +8,7 @@ import { toggleTheme } from './components/ThemeToggle.js';
 
 function initEventListeners() {
     // Theme
-    elements.themeToggle.addEventListener('click', () => toggleTheme());
+    //elements.themeToggle.addEventListener('click', () => toggleTheme());
 
     // Cart & Order Form
     elements.cartBadge.addEventListener('click', () => {
@@ -47,7 +47,7 @@ function initEventListeners() {
 function initApp() {
     console.log('🚀 Initializing Family Cheese app...');
     initializeTelegramWebApp();
-    toggleTheme(true); // Initialize theme without toggling
+    //toggleTheme(true); // Initialize theme without toggling
     initEventListeners();
     fetchUserData();
     
