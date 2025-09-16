@@ -3,7 +3,7 @@ export const AppState = {
     products: [],
     cart: {},
     isFormVisible: false,
-    theme: localStorage.getItem('theme') || 'light',
+    //theme: localStorage.getItem('theme') || 'light',
     tg: null, // Ініціалізується при запуску
 };
 
@@ -15,7 +15,7 @@ export const elements = {
     searchInput: document.getElementById('search-input'),
     
     // Header
-    themeToggle: document.getElementById('theme-toggle'),
+    //themeToggle: document.getElementById('theme-toggle'),
     cartBadge: document.getElementById('cart-badge'),
     cartCount: document.getElementById('cart-count'),
     

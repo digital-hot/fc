@@ -4,7 +4,7 @@ import { loadProducts, submitOrder, fetchUserData } from './services/api.service
 import { updateUI } from './ui/uiManager.js';
 import { handleProductClick } from './handlers/productHandler.js';
 import { openOrderForm, closeOrderForm, renderOrderSummary, toggleAddressField } from './components/OrderForm.js';
-import { toggleTheme } from './components/ThemeToggle.js';
+// import { toggleTheme } from './components/ThemeToggle.js';
 
 function initEventListeners() {
     // Theme
