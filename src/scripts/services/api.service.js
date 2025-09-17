@@ -17,6 +17,7 @@ function generateMockProducts() {
 }
 
 export async function loadProducts() {
+    
     elements.loading.style.display = 'flex';
     try {
         const response = await fetch(API_URLS.PRODUCTS);
