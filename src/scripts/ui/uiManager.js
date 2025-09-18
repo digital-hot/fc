@@ -69,11 +69,22 @@ export function showProductDetailsModal(title, description) {
     elements.modalTitle.textContent = title;
     elements.modalBody.innerHTML = description.replace(/\n/g, '<br><br>');
     elements.modal.classList.add('visible');
-    if (AppState.tg) AppState.tg.BackButton.show();
+    try { // Додано блок try...catch для безпечного доступу до API Telegram
+        if (AppState.tg && AppState.tg.BackButton) {
+            AppState.tg.BackButton.show();
+        }
+    } catch (e) {
+        console.error("Failed to show Telegram BackButton:", e);
+    }
 }
 
-// Додано: функція для закриття модального вікна
 export function closeProductDetailsModal() {
     elements.modal.classList.remove('visible');
-    if (AppState.tg) AppState.tg.BackButton.hide();
+    try { // Додано блок try...catch для безпечного доступу до API Telegram
+        if (AppState.tg && AppState.tg.BackButton) {
+            AppState.tg.BackButton.hide();
+        }
+    } catch (e) {
+        console.error("Failed to hide Telegram BackButton:", e);
+    }
 }
