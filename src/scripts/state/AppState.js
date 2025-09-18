@@ -34,5 +34,9 @@ export const elements = {
     formError: document.getElementById("form-error"),
 
     // Modal
+    //modal: document.getElementById('description-modal'),
     modal: document.getElementById('description-modal'),
+    modalTitle: document.getElementById('modal-title'),
+    modalBody: document.getElementById('modal-body'),
+    modalCloseBtn: document.getElementById('modal-close-btn'),
 };

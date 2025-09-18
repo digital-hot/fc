@@ -63,3 +63,17 @@ export function updateUI() {
         updateMainButton();
     }
 }
+
+// Додано: функція для показу вікна з описом продукту
+export function showProductDetailsModal(title, description) {
+    elements.modalTitle.textContent = title;
+    elements.modalBody.innerHTML = description.replace(/\n/g, '<br><br>');
+    elements.modal.classList.add('visible');
+    if (AppState.tg) AppState.tg.BackButton.show();
+}
+
+// Додано: функція для закриття модального вікна
+export function closeProductDetailsModal() {
+    elements.modal.classList.remove('visible');
+    if (AppState.tg) AppState.tg.BackButton.hide();
+}
