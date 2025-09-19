@@ -40,6 +40,7 @@ function updateMainButton() {
     if (totalItems > 0) {
         const buttonText = AppState.isFormVisible ? 'Надіслати замовлення' : `Переглянути кошик (${totalItems})`;
         AppState.tg.MainButton.setText(buttonText);
+        AppState.tg.MainButton.hasShineEffect = true; // Додано для ефекту блиску
         AppState.tg.MainButton.setParams({
             color: '#D4935A',
             hasShineEffect: true,
