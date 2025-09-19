@@ -17,17 +17,38 @@ function renderProducts() {
     });
 }
 
+// function updateCartControls() {
+//     document.querySelectorAll('.product-card').forEach(card => {
+//         const id = card.dataset.id;
+//         const addBtn = card.querySelector('.add-to-cart-btn');
+//         const quantityControl = card.querySelector('.quantity-control');
+        
+//         if (AppState.cart[id]) {
+//             addBtn.style.display = 'none';
+//             quantityControl.style.display = 'flex';
+//             quantityControl.querySelector('.quantity').textContent = AppState.cart[id].quantity;
+//         } else {
+//             addBtn.style.display = 'flex';
+//             quantityControl.style.display = 'none';
+//         }
+//     });
+// }
 function updateCartControls() {
     document.querySelectorAll('.product-card').forEach(card => {
         const id = card.dataset.id;
         const addBtn = card.querySelector('.add-to-cart-btn');
         const quantityControl = card.querySelector('.quantity-control');
         
+        // Перевіряємо, чи є товар у кошику
         if (AppState.cart[id]) {
-            addBtn.style.display = 'none';
-            quantityControl.style.display = 'flex';
-            quantityControl.querySelector('.quantity').textContent = AppState.cart[id].quantity;
+            // Використовуємо setTimeout, щоб дати анімації час відпрацювати
+            setTimeout(() => {
+                addBtn.style.display = 'none';
+                quantityControl.style.display = 'flex';
+                quantityControl.querySelector('.quantity').textContent = AppState.cart[id].quantity;
+            }, 100); // Затримка 100 мс для плавного переходу
         } else {
+            // Якщо товару немає, повертаємо початковий стан
             addBtn.style.display = 'flex';
             quantityControl.style.display = 'none';
         }
