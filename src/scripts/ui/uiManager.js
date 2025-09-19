@@ -42,6 +42,7 @@ function updateMainButton() {
         AppState.tg.MainButton.setText(buttonText);
         AppState.tg.MainButton.setParams({
             color: '#D4935A',
+            hasShineEffect: true,
             text_color: '#FFFFFF'
         });
         AppState.tg.MainButton.show();
