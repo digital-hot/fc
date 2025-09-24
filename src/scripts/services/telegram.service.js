@@ -6,8 +6,9 @@ export function initializeTelegramWebApp() {
         if (AppState.tg) {
             AppState.tg.ready();
             AppState.tg.expand();
-        } else {
             document.getElementById('order-button-container').style.display = 'none';
+        } else {
+            
             throw new Error("Telegram WebApp is not available");
         }
     } catch (e) {

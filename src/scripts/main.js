@@ -67,6 +67,7 @@ function initEventListeners() {
     document.getElementById("promo-section")
             ?.addEventListener("click", closePromo);
     
+            
     
 }
 
