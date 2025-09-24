@@ -58,6 +58,19 @@ function initEventListeners() {
         });
     }
 
+function closePromo() {
+  const banner = document.getElementById("promo-banner");
+  banner.classList.add("hide");
+  setTimeout(() => banner.style.display = "none", 500); // після анімації
+}
+
+window.addEventListener("scroll", () => {
+  const banner = document.getElementById("promo-banner");
+  if (banner && !banner.classList.contains("hide")) {
+    closePromo();
+  }
+}, { once: true }); // закриється при першій прокрутці
+
     // Telegram Events
     // if (AppState.tg) {
     //     AppState.tg.onEvent('backButtonClicked', closeOrderForm);

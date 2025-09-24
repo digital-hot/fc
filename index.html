@@ -42,61 +42,9 @@
     🎉 Лише зараз! <strong>-15%</strong> на всі сири 🧀  
     <span class="promo-sub">Встигніть замовити до кінця тижня!</span>
   </span>
-  <button class="promo-close" onclick="document.getElementById('promo-banner').style.display='none'">
-    &times;
-  </button>
+  <button class="promo-close" onclick="closePromo()">×</button>
 </div>
 
-<style>
-.promo-banner {
-  background: var(--gradient-primary);
-  color: white;
-  padding: 1rem 2rem;
-  text-align: center;
-  font-family: 'Comfortaa', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 600;
-  position: sticky;
-  top: 0;
-  z-index: 2000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  animation: pulse 2s infinite;
-  box-shadow: var(--shadow-medium);
-}
-
-.promo-banner .promo-text strong {
-  font-size: 1.4rem;
-  text-shadow: 0 0 8px rgba(255,255,255,0.6);
-}
-
-.promo-banner .promo-sub {
-  font-size: 0.9rem;
-  margin-left: 0.6rem;
-  font-weight: 400;
-  opacity: 0.9;
-}
-
-.promo-banner .promo-close {
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 1.8rem;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-.promo-banner .promo-close:hover {
-  transform: scale(1.2);
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(212, 147, 90, 0.6); }
-  70% { box-shadow: 0 0 0 20px rgba(212, 147, 90, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(212, 147, 90, 0); }
-}
-</style>
 
     <!-- <section class="search-filters">
         <div class="search-container">
