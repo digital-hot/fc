@@ -1009,6 +1009,35 @@ body::before {
   transform: scale(0.95);
   transition: opacity 0.4s, transform 0.4s;
 }
+#order-button-container {
+    position: fixed;
+    bottom: 16px;
+    width: 100%;
+    text-align: center;
+    pointer-events: auto;
+    z-index: 1000;
+}
+
+/* Кнопка у стилі твоєї палітри */
+.telegram-button {
+    display: inline-block;
+    padding: 14px 28px;
+    background: var(--gradient-primary);
+    color: var(--text-primary);
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: var(--border-radius-large);
+    text-decoration: none;
+    box-shadow: var(--shadow-medium);
+    transition: all var(--transition-smooth);
+}
+
+.telegram-button:hover {
+    background: var(--primary-hover);
+    box-shadow: var(--shadow-strong);
+    transform: translateY(-2px);
+}
+
 /* === МОБІЛЬНА АДАПТАЦІЯ (БЕЗ HOVER) === */
 /* @media (hover: none) and (pointer: coarse) {
     .product-card:hover,
