@@ -39,4 +39,6 @@ export const elements = {
     modalTitle: document.getElementById('modal-title'),
     modalBody: document.getElementById('modal-body'),
     modalCloseBtn: document.getElementById('modal-close-btn'),
+
+    banner : document.getElementById("promo-close"), 
 };
