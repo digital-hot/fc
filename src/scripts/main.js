@@ -67,9 +67,7 @@ function initEventListeners() {
     document.getElementById("promo-section")
             ?.addEventListener("click", closePromo);
     
-    if (!window.Telegram?.WebApp) {
-    document.getElementById('order-button-container').style.display = 'none';
-}
+    
 }
 
 function initApp() {
