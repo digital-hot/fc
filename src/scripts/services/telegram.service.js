@@ -5,9 +5,6 @@ export function initializeTelegramWebApp() {
         AppState.tg = window.Telegram?.WebApp;
         if (AppState.tg) {
             AppState.tg.ready();
-            if (AppState.tg.initDataUnsafe?.user) {
-                document.getElementById('order-button-container').style.display = 'none';
-            }
             AppState.tg.expand();
                                  
         } else {
@@ -33,5 +30,8 @@ export function initializeTelegramWebApp() {
         //     close: () => console.log('TG Close'),
         //     showAlert: (message) => alert(`[TG]: ${message}`),
         // };
+    }
+    if (window.Telegram && window.Telegram.WebApp) {
+        document.getElementById('order-button-container').style.display = 'none';
     }
 }
