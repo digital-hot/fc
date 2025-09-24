@@ -5,9 +5,12 @@ export function initializeTelegramWebApp() {
         AppState.tg = window.Telegram?.WebApp;
         if (AppState.tg) {
             AppState.tg.ready();
-            AppState.tg.expand();                    
+            if (AppState.tg.initDataUnsafe?.user) {
+                document.getElementById('order-button-container').style.display = 'none';
+            }
+            AppState.tg.expand();
+                                 
         } else {
-            document.getElementById('order-button-container').style.display = 'none'; 
             throw new Error("Telegram WebApp is not available");
         }
     } catch (e) {
