@@ -82,9 +82,8 @@ function initApp() {
         updateUI();
         console.log('✅ App initialized successfully');
     });
-
         document.addEventListener("DOMContentLoaded", () => {
-    const container = document.getElementById('order-button-container');
+    const container = document.getElementById('order-button-container-1');
 
     if (window.Telegram && window.Telegram.WebApp) {
         // Якщо відкрито через Telegram WebApp, приховуємо кнопку
@@ -96,7 +95,6 @@ function initApp() {
         console.log("Не Telegram WebApp – кнопка показана");
     }
 });
-
 
 }
 
