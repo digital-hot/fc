@@ -46,27 +46,12 @@
     </div>
   </div>
 </section>
-<script>
-        document.addEventListener("DOMContentLoaded", () => {
-    const container = document.getElementById('order-button-container');
 
-    if (window.Telegram && window.Telegram.WebApp) {
-        // Якщо відкрито через Telegram WebApp, приховуємо кнопку
-        container.style.display = 'none';
-        console.log("Telegram WebApp – кнопка прихована");
-    } else {
-        // Веб/інший браузер – показуємо кнопку
-        container.style.display = 'block';
-        console.log("Не Telegram WebApp – кнопка показана");
-    }
-});
-</script>
 <div id="order-button-container">
     <a href="https://t.me/family_cheese_bot" target="_blank" class="telegram-button">
         Оформити замовлення
     </a>
 </div>
-
 
     <!-- <section class="search-filters">
         <div class="search-container">
