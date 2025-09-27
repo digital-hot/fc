@@ -1160,9 +1160,17 @@
                 <span class="price">50 грн</span>
             </div>
             <div class="delivery-option">
+                <input type="radio" id="obukhiv-nova-poshta" name="delivery" value="50" data-title="Доставка Нова пошта м. Обухів">
+                <label for="obukhiv-nova-poshta">
+                    <b>Доставка у відділення «Нова пошта»</b><br>
+                    або поштомат у м. Обухів
+                </label>
+                <span class="price">50 грн</span>
+            </div>
+            <div class="delivery-option">
                 <input type="radio" id="nova-poshta" name="delivery" value="0" data-title="Нова Пошта">
                 <label for="nova-poshta">
-                    <b>Нова Пошта</b><br>
+                    <b>«Нова пошта»</b><br>
                     За тарифами перевізника
                 </label>
             </div>
@@ -1313,7 +1321,7 @@
     function openOrderForm() {
         AppState.isFormVisible = true;
         renderOrderSummary();
-        toggleAddressField();
+        //toggleAddressField();
         elements.orderForm.classList.add("visible");
         AppState.tg?.BackButton.show();
         updateUI();
@@ -1373,11 +1381,11 @@
         elements.orderSummary.innerHTML = itemsHTML + totalsHTML;
     }
 
-    function toggleAddressField() {
-        const selectedDeliveryId = document.querySelector('input[name="delivery"]:checked')?.id;
-        const isAddressNeeded = selectedDeliveryId === "obukhiv-delivery" || selectedDeliveryId === "nova-poshta";
-        elements.addressContainer.classList.toggle("visible", isAddressNeeded);
-    }
+    //function toggleAddressField() {
+        //const selectedDeliveryId = document.querySelector('input[name="delivery"]:checked')?.id;
+        //const isAddressNeeded = selectedDeliveryId === "obukhiv-delivery" || selectedDeliveryId === "nova-poshta";
+        //elements.addressContainer.classList.toggle("visible", isAddressNeeded);
+    //}
 
     // --- СЕРВІСИ ---
     // telegram.service.js
@@ -1681,7 +1689,7 @@
         elements.deliveryOptions.forEach(option => {
             option.addEventListener('change', () => {
                 renderOrderSummary();
-                toggleAddressField();
+                //toggleAddressField();
             });
         });
 
