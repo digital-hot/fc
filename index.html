@@ -1484,6 +1484,7 @@
             }
             console.log('Замовлення успішно відправлено!');
             AppState.tg?.showAlert('Ваше замовлення прийнято! Очікуйте на повідомлення в telegram.');
+            AppState.tg?.close();
         } catch (error) {
             console.error(error.message);
             AppState.tg?.showAlert(`Помилка відправки: ${error.message}`);
