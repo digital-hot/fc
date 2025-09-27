@@ -1443,27 +1443,22 @@
     }
 
     async function fetchUserData() {
-        if (!AppState.tg || !AppState.tg.initDataUnsafe?.user) return;
+        if (!AppState.tg || !AppState.tg.initData) return;
         try {
-            // Для цієї емуляції ми просто заповнимо ім'я користувача Telegram
-            const user = AppState.tg.initDataUnsafe.user;
-            elements.userNameInput.value = `${user.first_name} ${user.last_name || ''}`.trim();
-
-            // Якщо ви запускаєте це в реальному TG WebApp, розкоментуйте POST запит:
-            /*
             const response = await fetch(API_URLS.USER_DATA, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Telegram-Init-Data': AppState.tg.initData },
-                body: JSON.stringify({ initData: AppState.tg.initData, userId: user.id })
+                body: JSON.stringify({ initData: AppState.tg.initData, userId: AppState.tg.initDataUnsafe.user.id })
             });
             if (!response.ok) throw new Error(`Помилка мережі: ${response.status}`);
             const data = await response.json();
-            elements.userNameInput.value = elements.userNameInput.value || data.name || `${user.first_name} ${user.last_name || ''}`.trim();
+            elements.userNameInput.value = elements.userNameInput.value || data.name || `${AppState.tg.initDataUnsafe.user.first_name} ${AppState.tg.initDataUnsafe.user.last_name || ''}`.trim();
             elements.userPhoneInput.value = elements.userPhoneInput.value || data.phone || '';
             elements.addressInput.value = elements.addressInput.value || data.address || '';
-            */
         } catch (error) {
             console.error('Не вдалося отримати дані користувача:', error.message);
+            // Fallback for mock environment
+            elements.userNameInput.value = `${AppState.tg.initDataUnsafe.user.first_name} ${AppState.tg.initDataUnsafe.user.last_name || ''}`.trim();
         }
     }
 
