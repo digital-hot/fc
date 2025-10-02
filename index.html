@@ -991,7 +991,14 @@ body {
             }
             return { id, ...item };
         });
-
+        
+        if (selectedDelivery.id === 'obukhiv-delivery' || selectedDelivery.id === 'obukhiv-nova-poshta') {
+            cartAsArray.push({
+                id: 'Доставка',      // Артикул
+                price: 50,           // Фіксована ціна
+                quantity: 1          // Кількість
+            });
+        }
         const selectedDelivery = document.querySelector('input[name="delivery"]:checked');
         const deliveryData = {
             id: selectedDelivery.id,
