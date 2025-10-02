@@ -360,7 +360,7 @@ body {
     border-radius: var(--border-radius-medium);
     padding: 1.2rem;
     margin-bottom: 1rem;
-    color: var(--text-primary);
+    color: var(--success-color);
     font-size: 0.9rem;
     display: flex;
     align-items: center;
@@ -368,7 +368,7 @@ body {
 }
 
 .order-notice i {
-    color: var(--primary-color);
+    color: var(--success-color);
     font-size: 1.2rem;
 }
 /* === MODAL === */
@@ -612,6 +612,11 @@ body {
         
         <div id="order-summary"></div>
         
+        <div class="order-notice">
+            <i class="fas fa-info-circle"></i>
+            Після зважування сума вашого замовлення стане ще меншою!
+        </div>
+
         <button class="change-order-btn">
             <i class="fas fa-edit"></i>
             Змінити замовлення
@@ -656,10 +661,7 @@ body {
             <input type="tel" id="user-phone" placeholder="0 XX XXX XX XX">
         </div>
 
-        <div class="order-notice">
-            <i class="fas fa-info-circle"></i>
-            Фінальна сума замовлення може дещо змінитися після зважування товару.
-        </div>
+       
         <div class="order-notice">
             <i class="fas fa-credit-card"></i>
             Оплата після отримання замовлення.
