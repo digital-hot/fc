@@ -516,8 +516,9 @@ body {
 <section class="promo-section" id="promo-section">
   <div class="container">
     <div class="promo-box">
-      🎉 Лише зараз! <strong>-15%</strong> на всі сири 🧀  
-      <span class="promo-sub">Встигніть замовити до кінця тижня!</span>
+      🎉 -15% на всі сири 🧀  
+      + доставка по Обухову лише за <strong>1₴!</strong>  
+      <span class="promo-sub">Тільки цього тижня!</span>
       <button class="promo-close" id="promo-close">×</button>
     </div>
   </div>
@@ -625,19 +626,19 @@ body {
         <div class="delivery-options">
             <h2>Спосіб доставки</h2>
             <div class="delivery-option">
-                <input type="radio" id="obukhiv-delivery" name="delivery" value="50" data-title="Доставка по м. Обухів" checked>
+                <input type="radio" id="obukhiv-delivery" name="delivery" value="1" data-title="Доставка по м. Обухів" checked>
                 <label for="obukhiv-delivery">
                     <b>Доставка по м. Обухів</b>
                 </label>
-                <span class="price">50 грн</span>
+                <span class="price">1 грн</span>
             </div>
             <div class="delivery-option">
-                <input type="radio" id="obukhiv-nova-poshta" name="delivery" value="50" data-title="Доставка Нова пошта м. Обухів">
+                <input type="radio" id="obukhiv-nova-poshta" name="delivery" value="1" data-title="Доставка Нова пошта м. Обухів">
                 <label for="obukhiv-nova-poshta">
                     <b>Доставка у відділення «Нова пошта»</b><br>
                     або поштомат у м. Обухів
                 </label>
-                <span class="price">50 грн</span>
+                <span class="price">1 грн</span>
             </div>
             <div class="delivery-option">
                 <input type="radio" id="nova-poshta" name="delivery" value="0" data-title="Нова Пошта">
@@ -1004,7 +1005,7 @@ body {
         if (selectedDelivery.id === 'obukhiv-delivery' || selectedDelivery.id === 'obukhiv-nova-poshta') {
             cartAsArray.push({
                 id: 'Доставка',      // Артикул
-                price: 50,           // Фіксована ціна
+                price: 1,           // Фіксована ціна
                 quantity: 1          // Кількість
             });
         }
