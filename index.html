@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Вбудовані стилі CSS з усіх файлів (variables.css, themes.css, base.css, components.css, style.css) -->
     <style>
 /* === ЗМІННІ ТА ТЕМИ === */
 :root {
@@ -94,7 +93,7 @@ body {
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* === PRODUCT LIST & CARD === */
-.product-list { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+.product-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 1.5rem; }
 .product-card {
     background: var(--bg-card); border-radius: var(--border-radius-large);
     overflow: hidden; box-shadow: var(--shadow-soft);
@@ -102,7 +101,7 @@ body {
     border: 1px solid var(--border-color);
 }
 .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-medium); }
-.gallery-image { width: 100%; height: auto;  object-fit: cover; }/*aspect-ratio: 4 / 3;*/
+.gallery-image { width: 100%; height: auto;  object-fit: cover; }
 .product-info { padding: 1rem; }
 .title { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
 .weight { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.75rem; }
@@ -123,7 +122,6 @@ body {
 .details-btn { background: none; border: none; color: var(--primary-color); cursor: pointer; font-size: 0.9rem; text-decoration: none; }
 
 /* === MODAL & ORDER FORM === */
-/* ORDER FORM */
 .order-form {
     position: fixed;
     bottom: 0;
@@ -165,7 +163,7 @@ body {
     font-size: 1.6rem;
     background: var(--bg-tertiary);
     color: var(--text-primary);
-    transition: all var(--transition-bounce);
+    transition: all var(--transition-smooth);
     z-index: 10;
     box-shadow: var(--shadow-soft);
 }
@@ -371,6 +369,7 @@ body {
     color: var(--success-color);
     font-size: 1.2rem;
 }
+
 /* === MODAL === */
 .modal-backdrop {
     position: fixed;
@@ -470,7 +469,6 @@ body {
 
 /* === АДАПТИВНІСТЬ (TABLET & DESKTOP) === */
 @media (min-width: 600px) {
-    .product-list { grid-template-columns: repeat(2, 1fr); }
     .reviews-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (min-width: 768px) {
@@ -497,13 +495,11 @@ body {
 <body>
   <header class="header">
     <div class="header-content">
-        <!-- Логотип приховано, оскільки це Telegram WebApp, і фокус на товарах -->
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
             <input type="text" class="search-input" placeholder="Пошук сирів..." id="search-input">
         </div>
         <div class="header-actions">
-            <!-- Кнопка "Кошик" (для візуального підтвердження, хоча основна кнопка - TG MainButton) -->
             <button class="cart-badge" id="cart-badge" title="Кошик">
                 <span class="cart-count hidden" id="cart-count">0</span>
                 <i class="fas fa-shopping-cart"></i>
@@ -512,7 +508,6 @@ body {
     </div>
 </header>
 
-<!-- 🔔 Повідомлення про знижку -->
 <section class="promo-section" id="promo-section">
   <div class="container">
     <div class="promo-box">
@@ -532,7 +527,6 @@ body {
     <div class="product-list" id="product-list"></div>
 </div>
 
-<!-- Секція відгуків -->
 <section id="reviews" class="info-section">
     <div class="container">
         <h2 class="section-title">Відгуки наших клієнтів</h2>
@@ -543,13 +537,11 @@ body {
                     <div>
                         <p class="reviewer-name">Олена П.</p>
                         <div class="review-stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
                     </div>
                 </div>
-                <p class="review-text">"Неймовірно смачний сир! Гауда просто тане в роті. Відчувається, що продукт
-                    натуральний і зроблений з душею. Обов'язково замовлю ще!"</p>
+                <p class="review-text">"Неймовірно смачний сир! Гауда просто тане в роті. Відчувається, що продукт натуральний і зроблений з душею. Обов'язково замовлю ще!"</p>
             </div>
             <div class="review-card">
                 <div class="review-header">
@@ -557,19 +549,16 @@ body {
                     <div>
                         <p class="reviewer-name">Андрій</p>
                         <div class="review-stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                         </div>
                     </div>
                 </div>
-                <p class="review-text">"Замовляв доставку по Обухову, все привезли швидко. Сир свіжий, ароматний.
-                    Трохи дорожче, ніж в магазині, але якість того варта."</p>
+                <p class="review-text">"Замовляв доставку по Обухову, все привезли швидко. Сир свіжий, ароматний. Трохи дорожче, ніж в магазині, але якість того варта."</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Секція "Про Нас" -->
 <section id="about-us" class="info-section">
     <div class="container">
         <h2 class="section-title">Про Нас</h2>
@@ -580,17 +569,13 @@ body {
             <div class="about-text">
                 <h3>Сімейна справа з любов'ю до сиру</h3>
                 <p>
-                    <strong>Family Cheese</strong> — це невелика сімейна сироварня, де ми створюємо натуральні сири
-                    за традиційними рецептами. Кожна головка сиру — це результат ручної праці, якісного молока та
-                    нашої пристрасті до сироваріння. Ми віримо, що найкращий продукт народжується лише з найкращих
-                    інгредієнтів та дбайливого ставлення.
+                    <strong>Family Cheese</strong> — це невелика сімейна сироварня, де ми створюємо натуральні сири за традиційними рецептами. Кожна головка сиру — це результат ручної праці, якісного молока та нашої пристрасті до сироваріння. Ми віримо, що найкращий продукт народжується лише з найкращих інгредієнтів та дбайливого ставлення.
                 </p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Модальне вікно для детального опису товару -->
 <div class="modal-backdrop" id="description-modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -603,7 +588,6 @@ body {
     </div>
 </div>
 
-<!-- Форма замовлення (виїжджає знизу) -->
 <div id="order-form" class="order-form">
     <div class="order-form-content">
         <h2>Ваше замовлення</h2>
