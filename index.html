@@ -1269,6 +1269,47 @@ body {
             delivery: deliveryData
         };
     }
+   async function fetchUserData() {
+        if (!AppState.tg || !AppState.tg.initData) return;
+        try {
+            const response = await fetch(API_URLS.USER_DATA, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Telegram-Init-Data': AppState.tg.initData },
+                body: JSON.stringify({ initData: AppState.tg.initData, userId: AppState.tg.initDataUnsafe.user.id })
+            });
+            if (!response.ok) throw new Error(`Помилка мережі: ${response.status}`);
+            const data = await response.json();
+            elements.userNameInput.value = elements.userNameInput.value || data.name || `${AppState.tg.initDataUnsafe.user.first_name} ${AppState.tg.initDataUnsafe.user.last_name || ''}`.trim();
+            elements.userPhoneInput.value = elements.userPhoneInput.value || data.phone || '';
+            elements.addressInput.value = elements.addressInput.value || data.address || '';
+        } catch (error) {
+            console.error('Не вдалося отримати дані користувача:', error.message);
+            // Fallback for mock environment
+            elements.userNameInput.value = `${AppState.tg.initDataUnsafe.user.first_name} ${AppState.tg.initDataUnsafe.user.last_name || ''}`.trim();
+        }
+    }
+
+    async function postOrder(data) {
+        console.log("Sending order data:", data);
+        try {
+            // Реальний POST-запит до бекенду
+            const response = await fetch(API_URLS.SUBMIT_ORDER, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (!response.ok) {
+                throw new Error(`Помилка відправки замовлення: ${response.status}`);
+            }
+            console.log('Замовлення успішно відправлено!');
+            //AppState.tg?.showAlert('Ваше замовлення прийнято! Очікуйте на повідомлення в telegram.');
+          } catch (error) {
+            console.error(error.message);
+            AppState.tg?.showAlert(`Помилка відправки: ${error.message}`);
+        } finally {
+            AppState.tg?.close();
+        }
+    }
 
     function submitOrder() {
         const orderData = validateOrderForm();
