@@ -9,133 +9,407 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-/* === ЗМІННІ ТА ТЕМИ === */
 :root {
-    --primary-color: #D4935A; --primary-hover: #C17A3A;
-    --secondary-color: #E8B17A; --accent-color: #F2C98A;
-    --error-color: #E74C3C; --success-color: #27AE60;
-    --bg-primary: #FFF9F4; --bg-secondary: #F8F3ED;
-    --bg-tertiary: #F0E6D6; --bg-card: #FFFFFF;
-    --text-primary: #8B4513; --text-secondary: #A0522D;
-    --text-muted: #CD853F; --border-color: #E6D5C7;
-    --shadow-soft: 0 4px 20px rgba(212, 147, 90, 0.15);
-    --shadow-medium: 0 8px 30px rgba(212, 147, 90, 0.2);
-    --shadow-strong: 0 15px 40px rgba(212, 147, 90, 0.25);
-    --gradient-primary: linear-gradient(135deg, #F2C98A 0%, #D4935A 50%, #C17A3A 100%);
-    --gradient-secondary: radial-gradient(circle at center, #F5DEB3 0%, #E8B17A 100%);
-    --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --border-radius-soft: 12px; --border-radius-medium: 16px; --border-radius-large: 20px;
-}
-[data-theme="dark"] {
-    --bg-primary: #2C1810; --bg-secondary: #3D2318; --bg-tertiary: #4A2A1C;
-    --bg-card: #3D2318; --text-primary: #F5DEB3; --text-secondary: #E8B17A;
-    --text-muted: #D4935A; --border-color: #5D3A24;
+    --primary-color: #D4935A;
+    --primary-dark: #A0703E;
+    --primary-light: #E8B17A;
+    --accent: #F2C98A;
+    --success: #27AE60;
+    --error: #E74C3C;
+    --bg-primary: #FFF9F4;
+    --bg-secondary: #F8F3ED;
+    --bg-card: #FFFFFF;
+    --text-primary: #2C1810;
+    --text-secondary: #5D3A24;
+    --border-color: #E6D5C7;
+    --shadow: 0 2px 8px rgba(212, 147, 90, 0.1);
+    --shadow-lg: 0 8px 20px rgba(212, 147, 90, 0.15);
+    --gradient: linear-gradient(135deg, #F2C98A 0%, #D4935A 100%);
 }
 
-/* === БАЗОВІ СТИЛІ === */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; font-size: clamp(14px, 1.5vw, 16px); }
+html { scroll-behavior: smooth; font-size: 16px; }
 body {
     font-family: 'Inter', sans-serif;
-    background: var(--bg-primary); color: var(--text-primary);
-    line-height: 1.6; overflow-x: hidden;
-    transition: background-color var(--transition-smooth), color var(--transition-smooth);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
 }
-.hidden { display: none !important; }
 
-/* === HEADER === */
+/* HEADER */
 .header {
-    position: sticky; top: 0; z-index: 1000;
-    background: rgba(255, 249, 244, 0.9); backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--border-color); padding: 0.75rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 249, 244, 0.98);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
 }
-.header-content { display: flex; align-items: center; gap: 0.75rem; padding: 0 1rem; max-width: 1200px; margin: 0 auto; }
-.search-container { flex-grow: 1; position: relative; }
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    font-family: 'Comfortaa', sans-serif;
+    white-space: nowrap;
+}
+
+.search-container {
+    flex-grow: 1;
+    position: relative;
+}
+
 .search-input {
-    width: 100%; padding: 0.8rem 1rem; border: 2px solid var(--border-color);
-    border-radius: var(--border-radius-large); font-size: 1rem;
-    background: var(--bg-card); color: var(--text-primary);
-    transition: all var(--transition-smooth);
+    width: 100%;
+    padding: 0.7rem 1rem 0.7rem 2.5rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 20px;
+    font-size: 0.95rem;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
 }
-.search-input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(212, 147, 90, 0.2); }
-.search-icon { display: none; }
-.header-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+.search-input::placeholder {
+    color: var(--text-secondary);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: var(--bg-card);
+    box-shadow: 0 0 0 3px rgba(212, 147, 90, 0.1);
+}
+
+.search-icon {
+    position: absolute;
+    left: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    pointer-events: none;
+}
+
 .cart-badge {
-    width: 48px; height: 48px; border-radius: 50%; border: none;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: transform 0.3s; font-size: 1.2rem; position: relative;
-    background: var(--gradient-primary); color: white; box-shadow: var(--shadow-soft);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: var(--gradient);
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.cart-badge:hover { transform: scale(1.1); }
+
+.cart-badge:active {
+    transform: scale(0.95);
+}
+
+.cart-badge:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 16px rgba(212, 147, 90, 0.2);
+}
+
 .cart-count {
-    position: absolute; top: -5px; right: -5px; background: var(--error-color);
-    color: white; border-radius: 50%; width: 24px; height: 24px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.75rem; font-weight: 700;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--error);
+    color: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border: 2px solid var(--bg-primary);
 }
-@keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
-/* === PROMO === */
-.promo-section { margin: 1rem 0; padding: 0 1rem; }
+.cart-count.hidden {
+    display: none;
+}
+
+/* PROMO */
+.promo-section {
+    padding: 1rem;
+    margin-top: -0.5rem;
+}
+
 .promo-box {
-    background: var(--gradient-primary); color: white; padding: 1rem 1.5rem;
-    border-radius: var(--border-radius-medium); font-size: 1rem; font-weight: 600; text-align: center;
-    box-shadow: var(--shadow-soft); animation: pulse 2s infinite; position: relative;
+    background: var(--gradient);
+    color: white;
+    padding: 1.2rem 1.5rem;
+    border-radius: 16px;
+    text-align: center;
+    position: relative;
+    box-shadow: var(--shadow-lg);
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
-.promo-box strong { font-size: 1.2rem; }
-.promo-close { position: absolute; top: 8px; right: 12px; background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; }
-@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(212, 147, 90, 0.6); } 70% { box-shadow: 0 0 0 15px rgba(212, 147, 90, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 147, 90, 0); } }
 
-/* === LAYOUT & LOADING === */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 1rem 2rem; }
-.loading { display: flex; justify-content: center; align-items: center; height: 200px; }
-.spinner { width: 40px; height: 40px; border: 4px solid var(--border-color); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 1.5s ease-in-out infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
+.promo-box strong {
+    font-size: 1.1rem;
+    display: block;
+    margin: 0.3rem 0;
+}
 
-/* === PRODUCT LIST & CARD === */
-.product-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 1.5rem; }
+.promo-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.promo-close:active {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* CONTAINER */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem 2rem;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    gap: 1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* PRODUCT LIST */
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
 .product-card {
-    background: var(--bg-card); border-radius: var(--border-radius-large);
-    overflow: hidden; box-shadow: var(--shadow-soft);
-    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+    background: var(--bg-card);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
     border: 1px solid var(--border-color);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    flex-direction: column;
 }
-.product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-medium); }
-.gallery-image { width: 100%; height: auto;  object-fit: cover; }
-.product-info { padding: 1rem; }
-.title { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
-.weight { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.75rem; }
-.price-container { display: flex; align-items: baseline; gap: 0.75rem; margin-bottom: 1rem; }
-.current-price { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); }
-.original-price { font-size: 1rem; color: var(--text-muted); text-decoration: line-through; }
-.card-footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-.add-to-cart-btn {
-    background: var(--gradient-primary); color: white; border: none; width: 48px; height: 48px;
-    border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem; transition: transform 0.3s; box-shadow: var(--shadow-soft);
-}
-.add-to-cart-btn:hover { transform: scale(1.15); }
-.quantity-control { display: flex; align-items: center; gap: 0.75rem; background: var(--bg-secondary); border-radius: var(--border-radius-medium); padding: 0.5rem; }
-.quantity-btn { width: 32px; height: 32px; border-radius: 50%; border: none; background: var(--primary-color); color: white; cursor: pointer; font-weight: 700; transition: transform 0.3s; }
-.quantity-btn:hover { transform: scale(1.1); }
-.quantity { font-weight: 700; min-width: 24px; text-align: center; font-size: 1rem; }
-.details-btn { background: none; border: none; color: var(--primary-color); cursor: pointer; font-size: 0.9rem; text-decoration: none; }
 
-/* === MODAL & ORDER FORM === */
+.product-card:active {
+    transform: scale(0.98);
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.gallery-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    background: var(--bg-secondary);
+}
+
+.product-info {
+    padding: 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+    color: var(--text-primary);
+}
+
+.weight {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.price-container {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin-bottom: 0.8rem;
+    margin-top: auto;
+}
+
+.current-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.original-price {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-decoration: line-through;
+}
+
+.card-footer {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.add-to-cart-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--gradient);
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.add-to-cart-btn:active {
+    transform: scale(0.9);
+}
+
+.add-to-cart-btn:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 0.3rem;
+    flex-shrink: 0;
+}
+
+.quantity-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: var(--primary-color);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.quantity-btn:active {
+    transform: scale(0.9);
+}
+
+.quantity-btn:hover {
+    background: var(--primary-dark);
+}
+
+.quantity {
+    font-weight: 700;
+    min-width: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.details-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.4rem 0.6rem;
+    transition: all 0.2s ease;
+    margin-left: auto;
+}
+
+.details-btn:active {
+    transform: scale(0.95);
+}
+
+/* ORDER FORM */
 .order-form {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     background: var(--bg-card);
-    border-top-left-radius: var(--border-radius-large);
-    border-top-right-radius: var(--border-radius-large);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
     max-height: 90vh;
     overflow-y: auto;
     z-index: 1500;
     transform: translateY(100%);
-    transition: transform var(--transition-smooth);
-    box-shadow: 0 -10px 40px rgba(212, 147, 90, 0.3);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 -4px 20px rgba(212, 147, 90, 0.15);
     border-top: 3px solid var(--primary-color);
 }
 
@@ -144,80 +418,88 @@ body {
 }
 
 .order-form-content {
-    padding: 2.5rem;
+    padding: 2rem 1.5rem;
     position: relative;
-}
-
-.order-form-close-btn {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-    transition: all var(--transition-smooth);
-    z-index: 10;
-    box-shadow: var(--shadow-soft);
-}
-
-.order-form-close-btn:hover {
-    background: var(--error-color);
-    color: white;
-    transform: scale(1.15) rotate(90deg);
 }
 
 .order-form h2 {
     font-family: 'Comfortaa', sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 600;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     color: var(--text-primary);
 }
 
-.change-order-btn {
-    background: var(--bg-tertiary);
-    color: var(--text-secondary);
+.order-form-close-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius-medium);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 1.4rem;
     cursor: pointer;
-    margin-bottom: 2rem;
-    transition: all var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+    z-index: 10;
+}
+
+.order-form-close-btn:active {
+    transform: scale(0.9);
+}
+
+.order-form-close-btn:hover {
+    background: var(--error);
+    color: white;
+    transform: scale(1.1);
+}
+
+.change-order-btn {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
     font-weight: 600;
+    font-size: 0.95rem;
+    width: 100%;
+}
+
+.change-order-btn:active {
+    transform: scale(0.95);
 }
 
 .change-order-btn:hover {
     background: var(--primary-color);
     color: white;
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-medium);
 }
 
 .summary-item {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     padding: 1rem;
     background: var(--bg-secondary);
-    border-radius: var(--border-radius-medium);
-    margin-bottom: 1rem;
+    border-radius: 12px;
+    margin-bottom: 0.8rem;
     border: 1px solid var(--border-color);
 }
 
 .summary-item-img {
-    width: 64px;
-    height: 64px;
-    border-radius: var(--border-radius-medium);
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
     object-fit: cover;
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--shadow);
 }
 
 .summary-item-details {
@@ -226,66 +508,77 @@ body {
 
 .summary-item-name {
     font-weight: 600;
-    margin-bottom: 0.25rem;
-    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+    font-size: 0.9rem;
 }
 
 .summary-item-quantity {
-    color: var(--text-muted);
-    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
 }
 
 .summary-item-price {
     font-weight: 700;
     color: var(--primary-color);
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .summary-totals {
     background: var(--bg-secondary);
-    border-radius: var(--border-radius-large);
-    padding: 1.5rem;
-    margin: 2rem 0;
+    border-radius: 14px;
+    padding: 1.2rem;
+    margin: 1.5rem 0;
     border: 1px solid var(--border-color);
 }
 
-.summary-totals>div {
+.summary-totals > div {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.75rem;
-    font-size: 1.05rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
 }
 
 .total-price {
     font-weight: 700;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: var(--primary-color);
     border-top: 2px solid var(--border-color);
-    padding-top: 1rem;
-    margin-top: 1rem;
+    padding-top: 0.8rem;
+    margin-top: 0.8rem;
 }
 
 .total-discount {
-    color: var(--success-color);
+    color: var(--success);
     font-weight: 600;
 }
 
 .delivery-options {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.delivery-options h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
 }
 
 .delivery-option {
     display: flex;
     align-items: center;
-    padding: 1.2rem;
+    padding: 1rem;
     border: 2px solid var(--border-color);
-    border-radius: var(--border-radius-medium);
-    margin-bottom: 1rem;
+    border-radius: 12px;
+    margin-bottom: 0.8rem;
     cursor: pointer;
-    transition: all var(--transition-smooth);
+    transition: all 0.3s ease;
 }
 
-.delivery-option:hover {
+.delivery-option:active {
+    transform: scale(0.98);
+}
+
+.delivery-option:hover,
+.delivery-option input:checked + label + .price {
     border-color: var(--primary-color);
     background: rgba(212, 147, 90, 0.05);
 }
@@ -294,11 +587,19 @@ body {
     margin-right: 1rem;
     transform: scale(1.2);
     accent-color: var(--primary-color);
+    cursor: pointer;
 }
 
 .delivery-option label {
     flex: 1;
     cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.delivery-option label b {
+    display: block;
+    margin-bottom: 0.2rem;
 }
 
 .delivery-option .price {
@@ -307,11 +608,11 @@ body {
 }
 
 .address-field {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     opacity: 0;
     max-height: 0;
     overflow: hidden;
-    transition: all var(--transition-smooth);
+    transition: all 0.3s ease;
 }
 
 .address-field.visible {
@@ -320,64 +621,70 @@ body {
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
 }
 
 .form-group input,
 .address-field input {
     width: 100%;
-    padding: 1.2rem;
+    padding: 1rem;
     border: 2px solid var(--border-color);
-    border-radius: var(--border-radius-medium);
+    border-radius: 12px;
     font-size: 1rem;
     background: var(--bg-primary);
     color: var(--text-primary);
-    transition: all var(--transition-smooth);
+    transition: all 0.3s ease;
     font-family: 'Comfortaa', sans-serif;
+}
+
+.form-group input::placeholder,
+.address-field input::placeholder {
+    color: var(--text-secondary);
 }
 
 .form-group input:focus,
 .address-field input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(212, 147, 90, 0.2);
-    transform: translateY(-2px);
+    box-shadow: 0 0 0 3px rgba(212, 147, 90, 0.1);
+    background: var(--bg-card);
 }
 
 .error {
-    color: var(--error-color);
+    color: var(--error);
     font-size: 0.9rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     text-align: center;
     font-weight: 500;
 }
 
 .order-notice {
-    background: rgba(212, 147, 90, 0.1);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-medium);
-    padding: 1.2rem;
+    background: rgba(212, 147, 90, 0.08);
+    border: 1.5px solid rgba(212, 147, 90, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
     margin-bottom: 1rem;
-    color: var(--success-color);
+    color: var(--text-secondary);
     font-size: 0.9rem;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.8rem;
 }
 
 .order-notice i {
-    color: var(--success-color);
-    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    flex-shrink: 0;
 }
 
-/* === MODAL === */
+/* MODAL */
 .modal-backdrop {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(139, 69, 19, 0.7);
+    background: rgba(44, 24, 16, 0.6);
     backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
@@ -385,7 +692,7 @@ body {
     z-index: 2000;
     opacity: 0;
     visibility: hidden;
-    transition: all var(--transition-smooth);
+    transition: all 0.3s ease;
     padding: 1rem;
 }
 
@@ -396,14 +703,14 @@ body {
 
 .modal-content {
     background: var(--bg-card);
-    border-radius: var(--border-radius-large);
+    border-radius: 16px;
     max-width: 500px;
     width: 100%;
-    max-height: 90vh;
+    max-height: 85vh;
     overflow-y: auto;
-    box-shadow: var(--shadow-strong);
+    box-shadow: 0 10px 40px rgba(212, 147, 90, 0.2);
     transform: scale(0.9);
-    transition: transform var(--transition-smooth);
+    transition: transform 0.3s ease;
 }
 
 .modal-backdrop.visible .modal-content {
@@ -414,7 +721,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 1.5rem;
+    padding: 1.5rem;
     border-bottom: 1px solid var(--border-color);
     background: var(--bg-secondary);
 }
@@ -429,16 +736,16 @@ body {
 .modal-close {
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     cursor: pointer;
     color: var(--text-secondary);
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
 }
 
 .modal-close:hover {
@@ -450,42 +757,147 @@ body {
     padding: 1.5rem;
     line-height: 1.7;
     color: var(--text-secondary);
+    font-size: 0.95rem;
 }
 
-/* === INFO SECTIONS === */
-.info-section { padding: 2rem 0; margin-top: 2rem; }
-.section-title { text-align: center; font-size: 1.8rem; font-weight: 700; margin-bottom: 2rem; color: var(--text-primary); }
-.about-content { display: grid; grid-template-columns: 1fr; gap: 2rem; text-align: center; }
-.about-image img { width: 100%; border-radius: var(--border-radius-large); box-shadow: var(--shadow-medium); }
-.about-text h3 { font-size: 1.5rem; margin-bottom: 1rem; }
-.about-text p { color: var(--text-secondary); line-height: 1.7; font-size: 1rem; }
-.reviews-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-.review-card { background: var(--bg-card); padding: 1.5rem; border-radius: var(--border-radius-large); box-shadow: var(--shadow-soft); border: 1px solid var(--border-color); }
-.review-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-.review-header .fa-user-circle { font-size: 3rem; color: var(--primary-color); }
-.reviewer-name { font-weight: 600; font-size: 1.1rem; }
-.review-stars { color: #F39C12; font-size: 1rem; }
-.review-text { color: var(--text-secondary); font-style: italic; font-size: 1rem; }
+/* INFO SECTIONS */
+.info-section {
+    padding: 2rem 0;
+    margin-top: 2rem;
+}
 
-/* === АДАПТИВНІСТЬ (TABLET & DESKTOP) === */
+.section-title {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 14px;
+    box-shadow: var(--shadow-lg);
+}
+
+.about-text h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.about-text p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+}
+
+.review-card {
+    background: var(--bg-card);
+    padding: 1.2rem;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.review-header .fa-user-circle {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.reviewer-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.review-stars {
+    color: #F39C12;
+    font-size: 0.9rem;
+}
+
+.review-text {
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* RESPONSIVE */
 @media (min-width: 600px) {
-    .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+    .reviews-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
+
 @media (min-width: 768px) {
-    :root { font-size: 16px; }
-    .header { padding: 1rem 0; }
-    .header-content { gap: 1.5rem; padding: 0 1.5rem; }
-    .search-input { padding: 1rem 1rem 1rem 3.5rem; }
-    .search-icon { display: block; position: absolute; left: 1.2rem; top: 50%; transform: translateY(-50%); color: var(--primary-color); font-size: 1.2rem; }
-    .container { padding: 0 1.5rem 3rem; }
-    .product-list { margin-top: 2rem; }
-    .product-info { padding: 1.5rem; }
-    .section-title { font-size: 2.2rem; }
-    .about-content { grid-template-columns: 1fr 1.5fr; text-align: left; }
+    .header {
+        padding: 1.2rem 0;
+    }
+    
+    .header-content {
+        gap: 1.5rem;
+        padding: 0 1.5rem;
+    }
+
+    .search-input {
+        padding: 0.8rem 1.2rem 0.8rem 2.8rem;
+        border-radius: 24px;
+    }
+
+    .container {
+        padding: 0 1.5rem 3rem;
+    }
+
+    .product-list {
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr 1.5fr;
+        text-align: left;
+        gap: 2rem;
+    }
 }
+
 @media (min-width: 1024px) {
-    .product-list { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; }
-    .reviews-grid { grid-template-columns: repeat(3, 1fr); }
+    .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+
+    .reviews-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.hidden {
+    display: none !important;
 }
 </style>
     
@@ -495,26 +907,25 @@ body {
 <body>
   <header class="header">
     <div class="header-content">
+        <div class="logo">🧀 Family</div>
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
             <input type="text" class="search-input" placeholder="Пошук сирів..." id="search-input">
         </div>
-        <div class="header-actions">
-            <button class="cart-badge" id="cart-badge" title="Кошик">
-                <span class="cart-count hidden" id="cart-count">0</span>
-                <i class="fas fa-shopping-cart"></i>
-            </button>
-        </div>
+        <button class="cart-badge" id="cart-badge" title="Кошик">
+            <span class="cart-count hidden" id="cart-count">0</span>
+            <i class="fas fa-shopping-cart"></i>
+        </button>
     </div>
 </header>
 
 <section class="promo-section" id="promo-section">
   <div class="container">
     <div class="promo-box">
-      🎉 15% на всі сири 🧀  
-      + доставка по Обухову лише за <strong>1 грн.!</strong>  
-      <span class="promo-sub">Тільки цього тижня!</span>
-      <button class="promo-close" id="promo-close">×</button>
+      🎉 <strong>15% на всі сири</strong>
+      + доставка по Обухову <strong>1 грн</strong>
+      <br><small style="opacity: 0.9;">Тільки цього тижня!</small>
+      <button class="promo-close" id="promo-close"><i class="fas fa-times"></i></button>
     </div>
   </div>
 </section>
@@ -522,38 +933,34 @@ body {
 <div class="container">
     <div class="loading" id="loading">
         <div class="spinner"></div>
-        Завантаження каталогу...
+        <span>Завантаження...</span>
     </div>
     <div class="product-list" id="product-list"></div>
 </div>
 
 <section id="reviews" class="info-section">
     <div class="container">
-        <h2 class="section-title">Відгуки наших клієнтів</h2>
+        <h2 class="section-title">Відгуки клієнтів</h2>
         <div class="reviews-grid">
             <div class="review-card">
                 <div class="review-header">
                     <i class="fas fa-user-circle"></i>
                     <div>
                         <p class="reviewer-name">Олена П.</p>
-                        <div class="review-stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
+                        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                     </div>
                 </div>
-                <p class="review-text">"Неймовірно смачний сир! Гауда просто тане в роті. Відчувається, що продукт натуральний і зроблений з душею. Обов'язково замовлю ще!"</p>
+                <p class="review-text">"Неймовірно смачний сир! Гауда просто тане в роті. Відчувається натуральність. Обов'язково замовлю ще!"</p>
             </div>
             <div class="review-card">
                 <div class="review-header">
                     <i class="fas fa-user-circle"></i>
                     <div>
                         <p class="reviewer-name">Андрій</p>
-                        <div class="review-stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                        </div>
+                        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
                     </div>
                 </div>
-                <p class="review-text">"Замовляв доставку по Обухову, все привезли швидко. Сир свіжий, ароматний. Трохи дорожче, ніж в магазині, але якість того варта."</p>
+                <p class="review-text">"Замовляв по Обухову, привезли швидко. Сир свіжий і ароматний. Якість того варта!"</p>
             </div>
         </div>
     </div>
@@ -564,13 +971,11 @@ body {
         <h2 class="section-title">Про Нас</h2>
         <div class="about-content">
             <div class="about-image">
-                <img src="data/pro_nas.png" alt="Наша сироварня">
+                <img src="data/pro_nas.png" alt="Наша сироварня" onerror="this.style.display='none'">
             </div>
             <div class="about-text">
-                <h3>Сімейна справа з любов'ю до сиру</h3>
-                <p>
-                    <strong>Family Cheese</strong> — це невелика сімейна сироварня, де ми створюємо натуральні сири за традиційними рецептами. Кожна головка сиру — це результат ручної праці, якісного молока та нашої пристрасті до сироваріння. Ми віримо, що найкращий продукт народжується лише з найкращих інгредієнтів та дбайливого ставлення.
-                </p>
+                <h3>Сімейна справа з любов'ю</h3>
+                <p><strong>Family Cheese</strong> — невелика сімейна сироварня, де створюють натуральні сири за традиційними рецептами. Кожна головка — результат ручної праці, якісного молока та пристрасті до сироваріння.</p>
             </div>
         </div>
     </div>
@@ -580,9 +985,7 @@ body {
     <div class="modal-content">
         <div class="modal-header">
             <h2 class="modal-title" id="modal-title"></h2>
-            <button class="modal-close" id="modal-close-btn">
-                <i class="fas fa-times"></i>
-            </button>
+            <button class="modal-close" id="modal-close-btn"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body" id="modal-body"></div>
     </div>
@@ -591,50 +994,37 @@ body {
 <div id="order-form" class="order-form">
     <div class="order-form-content">
         <h2>Ваше замовлення</h2>
-        <button class="order-form-close-btn" id="order-form-close-btn" title="Закрити">
-            <i class="fas fa-times"></i>
-        </button>
+        <button class="order-form-close-btn" id="order-form-close-btn" title="Закрити"><i class="fas fa-times"></i></button>
         
         <div id="order-summary"></div>
         
         <div class="order-notice">
             <i class="fas fa-info-circle"></i>
-            Після зважування сума вашого замовлення стане ще меншою!
+            Після зважування сума стане меншою!
         </div>
 
-        <button class="change-order-btn">
-            <i class="fas fa-edit"></i>
-            Змінити замовлення
-        </button>
+        <button class="change-order-btn"><i class="fas fa-edit"></i> Змінити замовлення</button>
 
         <div class="delivery-options">
             <h2>Спосіб доставки</h2>
             <div class="delivery-option">
                 <input type="radio" id="obukhiv-delivery" name="delivery" value="1" data-title="Доставка по м. Обухів" checked>
-                <label for="obukhiv-delivery">
-                    <b>Доставка по м. Обухів</b>
-                </label>
+                <label for="obukhiv-delivery"><b>Доставка по м. Обухів</b></label>
                 <span class="price">1 грн</span>
             </div>
             <div class="delivery-option">
                 <input type="radio" id="obukhiv-nova-poshta" name="delivery" value="1" data-title="Доставка Нова пошта м. Обухів">
-                <label for="obukhiv-nova-poshta">
-                    <b>Доставка у відділення «Нова пошта»</b><br>
-                    або поштомат у м. Обухів
-                </label>
+                <label for="obukhiv-nova-poshta"><b>Нова пошта у м. Обухів</b><br><small style="font-size: 0.8rem;">або поштомат</small></label>
                 <span class="price">1 грн</span>
             </div>
             <div class="delivery-option">
-                <input type="radio" id="nova-poshta" name="delivery" value="0" data-title="Нова Пошта">
-                <label for="nova-poshta">
-                    <b>«Нова пошта»</b><br>
-                    За тарифами перевізника
-                </label>
+                <input type="radio" id="nova-poshta" name="delivery" value="0" data-title="Нова Пошта по Україні">
+                <label for="nova-poshta"><b>Нова пошта по Україні</b><br><small style="font-size: 0.8rem;">за тарифами перевізника</small></label>
             </div>
         </div>
 
         <div id="address-field-container" class="address-field visible">
-            <input type="text" id="address-input" placeholder="Введіть вашу адресу або № відділення">
+            <input type="text" id="address-input" placeholder="Введіть адресу або № відділення">
         </div>
 
         <h2>Контактні дані</h2>
@@ -646,61 +1036,45 @@ body {
             <input type="tel" id="user-phone" placeholder="0 XX XXX XX XX">
         </div>
 
-       
         <div class="order-notice">
             <i class="fas fa-credit-card"></i>
-            Оплата після отримання замовлення.
+            Оплата після отримання
         </div>
     </div>
 </div>
 
 <script type="module">
-    // --- СТАН (AppState.js) ---
     const AppState = {
         products: [],
         cart: {},
         isFormVisible: false,
-        tg: null, // Ініціалізується при запуску
+        tg: null,
     };
 
-    // Колекція основних елементів DOM
     const elements = {
-        // General
         loading: document.getElementById('loading'),
         productList: document.getElementById('product-list'),
         searchInput: document.getElementById('search-input'),
-        
-        // Header
         cartBadge: document.getElementById('cart-badge'),
         cartCount: document.getElementById('cart-count'),
-        
-        // Promo
         promoSection: document.getElementById('promo-section'),
         promoCloseBtn: document.getElementById('promo-close'),
-
-        // Order Form
         orderForm: document.getElementById('order-form'),
         orderFormCloseBtn: document.getElementById('order-form-close-btn'),
         changeOrderBtn: document.querySelector('.change-order-btn'),
         deliveryOptions: document.querySelectorAll('input[name="delivery"]'),
         addressContainer: document.getElementById('address-field-container'),
         orderSummary: document.getElementById('order-summary'),
-
-        // Form inputs
         userNameInput: document.getElementById("user-name"),
         userPhoneInput: document.getElementById("user-phone"),
         addressInput: document.getElementById("address-input"),
         formError: document.getElementById("form-error"),
-
-        // Modal
         modal: document.getElementById('description-modal'),
         modalTitle: document.getElementById('modal-title'),
         modalBody: document.getElementById('modal-body'),
         modalCloseBtn: document.getElementById('modal-close-btn'),
     };
 
-    // --- КОМПОНЕНТИ ---
-    // ProductCard.js
     function createProductElement(product) {
         const card = document.createElement("div");
         card.className = "product-card";
@@ -711,10 +1085,10 @@ body {
             : `<span class="current-price">${product.price.toFixed(2)} грн</span>`;
 
         card.innerHTML = `
-            <div class="gallery"><img src="${product.images[0]}" alt="${product.name}" class="gallery-image" onerror="this.onerror=null;this.src='https://placehold.co/400x300/F0E6D6/8B4513?text=Family+Cheese';"></div>
+            <img src="${product.images[0]}" alt="${product.name}" class="gallery-image" onerror="this.onerror=null;this.src='https://placehold.co/300x300/E8B17A/8B4513?text=${encodeURIComponent(product.name)}';"/>
             <div class="product-info">
                 <div class="title">${product.name}</div>
-                <div class="weight"><i class="fas fa-weight"></i> ${product.weight}</div>
+                <div class="weight"><i class="fas fa-cube"></i> ${product.weight}</div>
                 <div class="price-container">${priceHTML}</div>
                 <div class="card-footer">
                     <button class="add-to-cart-btn" title="Додати в кошик"><i class="fas fa-plus"></i></button>
@@ -723,15 +1097,12 @@ body {
                         <span class="quantity">1</span>
                         <button class="quantity-btn" data-action="increase"><i class="fas fa-plus"></i></button>
                     </div>
-                    <button class="details-btn" data-title="${product.name}" data-description="${product.description.replace(/"/g, '&quot;')}">
-                        <i class="fas fa-info-circle"></i> Детальніше
-                    </button>
+                    <button class="details-btn" data-title="${product.name}" data-description="${product.description.replace(/"/g, '&quot;')}"><i class="fas fa-circle-info"></i></button>
                 </div>
             </div>`;
         return card;
     }
 
-    // Cart.js
     function updateCart(productId, action) {
         const product = AppState.products.find(p => p.id == productId);
         if (!product) return;
@@ -746,15 +1117,12 @@ body {
                 delete AppState.cart[productId];
             }
         }
-        
         updateUI();
     }
 
-    // OrderForm.js
     function openOrderForm() {
         AppState.isFormVisible = true;
         renderOrderSummary();
-        //toggleAddressField();
         elements.orderForm.classList.add("visible");
         AppState.tg?.BackButton.show();
         updateUI();
@@ -788,10 +1156,10 @@ body {
 
             itemsHTML += `
                 <div class="summary-item">
-                    <img src="${product.images[0]}" alt="${item.name}" class="summary-item-img" onerror="this.onerror=null;this.src='https://placehold.co/64x64/F0E6D6/8B4513?text=🧀';">
+                    <img src="${product.images[0]}" alt="${item.name}" class="summary-item-img" onerror="this.onerror=null;this.src='https://placehold.co/56x56/E8B17A/8B4513?text=🧀';">
                     <div class="summary-item-details">
                         <div class="summary-item-name">${item.name}</div>
-                        <div class="summary-item-quantity">${item.quantity} x ${item.price.toFixed(2)} грн</div>
+                        <div class="summary-item-quantity">${item.quantity} × ${item.price.toFixed(2)} грн</div>
                     </div>
                     <div class="summary-item-price">${itemTotalPrice.toFixed(2)} грн</div>
                 </div>`;
@@ -803,25 +1171,14 @@ body {
 
         const totalsHTML = `
             <div class="summary-totals">
-                ${totalDiscount > 0 ? `<div class="total-discount"><span><i class="fas fa-tags"></i> Ваша знижка:</span><span>-${totalDiscount.toFixed(2)} грн</span></div>` : ""}
+                ${totalDiscount > 0 ? `<div class="total-discount"><span><i class="fas fa-tag"></i> Знижка:</span><span>-${totalDiscount.toFixed(2)} грн</span></div>` : ""}
                 ${deliveryCost > 0 ? `<div><span><i class="fas fa-truck"></i> Доставка:</span><span>${deliveryCost.toFixed(2)} грн</span></div>` : ""}
-                <div class="total-price">
-                    <span><i class="fas fa-receipt"></i> Всього до сплати:</span>
-                    <span>${finalTotal.toFixed(2)} грн</span>
-                </div>
+                <div class="total-price"><span>Разом:</span><span>${finalTotal.toFixed(2)} грн</span></div>
             </div>`;
 
         elements.orderSummary.innerHTML = itemsHTML + totalsHTML;
     }
 
-    //function toggleAddressField() {
-        //const selectedDeliveryId = document.querySelector('input[name="delivery"]:checked')?.id;
-        //const isAddressNeeded = selectedDeliveryId === "obukhiv-delivery" || selectedDeliveryId === "nova-poshta";
-        //elements.addressContainer.classList.toggle("visible", isAddressNeeded);
-    //}
-
-    // --- СЕРВІСИ ---
-    // telegram.service.js
     function initializeTelegramWebApp() {
         try {
             AppState.tg = window.Telegram?.WebApp;
@@ -829,178 +1186,83 @@ body {
                 AppState.tg.ready();
                 AppState.tg.expand();
             } else {
-                // Mock object for browser testing if TG is not available
                 AppState.tg = {
-                    initData: 'dev_mode_init_data',
-                    initDataUnsafe: { user: { id: 'demo_user', first_name: 'Test', last_name: 'User' } },
+                    initData: 'dev_mode',
+                    initDataUnsafe: { user: { id: 'test', first_name: 'Test', last_name: 'User' } },
                     MainButton: {
-                        setText: (text) => console.log('TG MainButton Text:', text),
-                        show: () => console.log('TG MainButton: Show'),
-                        hide: () => console.log('TG MainButton: Hide'),
-                        setParams: (params) => console.log('TG MainButton Params:', params),
-                        onClick: (callback) => console.log('TG MainButton Click Registered'),
+                        setText: () => {},
+                        show: () => {},
+                        hide: () => {},
+                        setParams: () => {},
                     },
                     BackButton: {
-                        show: () => console.log('TG BackButton: Show'),
-                        hide: () => console.log('TG BackButton: Hide'),
-                        onClick: (callback) => console.log('TG BackButton Click Registered'),
+                        show: () => {},
+                        hide: () => {},
                     },
-                    onEvent: (event, callback) => {
-                        if (event === 'mainButtonClicked' || event === 'backButtonClicked') {
-                            // Mock registration for browser environment
-                            if (event === 'mainButtonClicked') elements.cartBadge.addEventListener('click', callback);
-                            if (event === 'backButtonClicked') elements.orderFormCloseBtn.addEventListener('click', callback);
-                        }
-                    },
-                    close: () => console.log('TG Close'),
-                    showAlert: (message) => console.log(`[TG Alert]: ${message}`), // Using console log instead of alert
+                    onEvent: () => {},
+                    close: () => {},
+                    showAlert: (msg) => alert(msg),
                 };
             }
         } catch (e) {
-            console.warn(`Error initializing Telegram WebApp: ${e.message}`);
+            console.warn('TG init error:', e);
         }
     }
 
-    // api.service.js
     const API_URLS = {
-        PRODUCTS: './data/products.json', // Залишаємо для гнучкості, але використовуємо вбудовані дані
-        USER_DATA: 'https://urfine.com.ua/fct/hs/bots/user/',
+        PRODUCTS: './data/products.json',
         SUBMIT_ORDER: 'https://urfine.com.ua/fct/hs/bots/order/'
     };
 
     async function loadProducts() {
-        // elements.loading.style.display = 'flex';
-        // // Оскільки файли об'єднані, використовуємо вбудовані дані
-        // AppState.products = generateMockProducts();
-        // elements.loading.style.display = 'none';
-        
-
-            elements.loading.style.display = 'flex';
+        elements.loading.style.display = 'flex';
         try {
             const response = await fetch(API_URLS.PRODUCTS);
-            if (!response.ok) throw new Error('Network response was not ok');
+            if (!response.ok) throw new Error('Network error');
             AppState.products = await response.json();
         } catch (error) {
-            console.error('Failed to load products, using mock data:', error);
+            console.error('Load error:', error);
+            AppState.products = [];
         } finally {
             elements.loading.style.display = 'none';
         }
     }
 
-    async function fetchUserData() {
-        if (!AppState.tg || !AppState.tg.initData) return;
-        try {
-            const response = await fetch(API_URLS.USER_DATA, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Telegram-Init-Data': AppState.tg.initData },
-                body: JSON.stringify({ initData: AppState.tg.initData, userId: AppState.tg.initDataUnsafe.user.id })
-            });
-            if (!response.ok) throw new Error(`Помилка мережі: ${response.status}`);
-            const data = await response.json();
-            elements.userNameInput.value = elements.userNameInput.value || data.name || `${AppState.tg.initDataUnsafe.user.first_name} ${AppState.tg.initDataUnsafe.user.last_name || ''}`.trim();
-            elements.userPhoneInput.value = elements.userPhoneInput.value || data.phone || '';
-            elements.addressInput.value = elements.addressInput.value || data.address || '';
-        } catch (error) {
-            console.error('Не вдалося отримати дані користувача:', error.message);
-            // Fallback for mock environment
-            elements.userNameInput.value = `${AppState.tg.initDataUnsafe.user.first_name} ${AppState.tg.initDataUnsafe.user.last_name || ''}`.trim();
-        }
-    }
-
-    async function postOrder(data) {
-        console.log("Sending order data:", data);
-        try {
-            // Реальний POST-запит до бекенду
-            const response = await fetch(API_URLS.SUBMIT_ORDER, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-            if (!response.ok) {
-                throw new Error(`Помилка відправки замовлення: ${response.status}`);
-            }
-            console.log('Замовлення успішно відправлено!');
-            //AppState.tg?.showAlert('Ваше замовлення прийнято! Очікуйте на повідомлення в telegram.');
-          } catch (error) {
-            console.error(error.message);
-            AppState.tg?.showAlert(`Помилка відправки: ${error.message}`);
-        } finally {
-            AppState.tg?.close();
-        }
-    }
-
-    function submitOrder() {
-        const orderData = validateOrderForm();
-        if (!orderData) return; // Validation failed
-        
-        AppState.tg?.showAlert('Ваше замовлення прийнято! Очікуйте на повідомлення в telegram.');
-        AppState.tg?.close();
-        postOrder(orderData);
-    }
-
-    // --- УТИЛІТИ ---
-    // validators.js
     function validateOrderForm() {
         elements.formError.textContent = "";
 
-        // 1. Валідація імені
         if (elements.userNameInput.value.trim().length < 3) {
-            elements.formError.textContent = "Введіть коректне ім'я та прізвище.";
-            elements.userNameInput.focus();
+            elements.formError.textContent = "Введіть ім'я та прізвище";
             return null;
         }
 
-        // 2. Валідація телефону
         if (!/^\+?3?8?(0\d{9})$/.test(elements.userPhoneInput.value.replace(/\s/g, ""))) {
-            elements.formError.textContent = "Введіть телефон у форматі 0XXXXXXXXX.";
-            elements.userPhoneInput.focus();
+            elements.formError.textContent = "Введіть телефон";
             return null;
         }
 
-        // 3. Валідація адреси
-        if (elements.addressContainer.classList.contains("visible") && elements.addressInput.value.trim().length < 5) {
-            elements.formError.textContent = "Будь ласка, введіть адресу або № відділення.";
-            elements.addressInput.focus();
-            return null;
-        }
-
-        // --- Якщо валідація пройдена, формуємо об'єкт замовлення ---
         let rawTotalPrice = 0;
         let rawTotalDiscount = 0;
         const cartAsArray = Object.keys(AppState.cart).map(id => {
             const product = AppState.products.find(p => p.id == id);
             const item = AppState.cart[id];
             rawTotalPrice += item.price * item.quantity;
-            if (product && product.original_price) {
+            if (product?.original_price) {
                 rawTotalDiscount += (product.original_price - item.price) * item.quantity;
             }
             return { id, ...item };
         });
-        
-        
+
         const selectedDelivery = document.querySelector('input[name="delivery"]:checked');
         const deliveryData = {
             id: selectedDelivery.id,
-            title: selectedDelivery.dataset.title,
             cost: parseInt(selectedDelivery.value, 10) || 0,
             address: elements.addressInput.value
         };
 
-        if (selectedDelivery.id === 'obukhiv-delivery' || selectedDelivery.id === 'obukhiv-nova-poshta') {
-            cartAsArray.push({
-                id: 'Доставка',      // Артикул
-                price: 1,           // Фіксована ціна
-                quantity: 1          // Кількість
-            });
-        }
-
-        const userId = AppState.tg.initDataUnsafe?.user?.id || 'browser_user';
-        const initData = AppState.tg.initData || 'browser_init_data';
-
         return {
-            userId: userId,
+            userId: AppState.tg.initDataUnsafe?.user?.id || 'user',
             user: { name: elements.userNameInput.value, phone: elements.userPhoneInput.value },
-            initData: initData,
             cart: cartAsArray,
             totalPrice: (rawTotalPrice + deliveryData.cost).toFixed(2),
             totalDiscount: rawTotalDiscount.toFixed(2),
@@ -1008,20 +1270,32 @@ body {
         };
     }
 
-    // --- UI МЕНЕДЖМЕНТ ---
-    // uiManager.js
+    function submitOrder() {
+        const orderData = validateOrderForm();
+        if (!orderData) return;
+        
+        AppState.tg.showAlert('Замовлення прийнято!');
+        AppState.tg.close();
+        
+        fetch(API_URLS.SUBMIT_ORDER, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(orderData)
+        }).catch(e => console.error('Order error:', e));
+    }
+
     function renderProducts() {
         const query = elements.searchInput.value.toLowerCase();
-        const filteredProducts = AppState.products.filter(p =>
+        const filtered = AppState.products.filter(p =>
             p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query)
         );
 
         elements.productList.innerHTML = "";
-        if (filteredProducts.length === 0) {
-            elements.productList.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 2rem;"><h3>Товари не знайдено</h3></div>`;
+        if (filtered.length === 0) {
+            elements.productList.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: var(--text-secondary);">Товари не знайдено</div>`;
             return;
         }
-        filteredProducts.forEach(product => {
+        filtered.forEach(product => {
             elements.productList.appendChild(createProductElement(product));
         });
     }
@@ -1033,11 +1307,9 @@ body {
             const quantityControl = card.querySelector('.quantity-control');
             
             if (AppState.cart[id]) {
-                setTimeout(() => {
-                    addBtn.style.display = 'none';
-                    quantityControl.style.display = 'flex';
-                    quantityControl.querySelector('.quantity').textContent = AppState.cart[id].quantity;
-                }, 100);
+                addBtn.style.display = 'none';
+                quantityControl.style.display = 'flex';
+                quantityControl.querySelector('.quantity').textContent = AppState.cart[id].quantity;
             } else {
                 addBtn.style.display = 'flex';
                 quantityControl.style.display = 'none';
@@ -1047,15 +1319,9 @@ body {
 
     function updateMainButton() {
         const totalItems = Object.values(AppState.cart).reduce((sum, item) => sum + item.quantity, 0);
-
         if (totalItems > 0) {
-            const buttonText = AppState.isFormVisible ? 'Надіслати замовлення' : `Переглянути кошик (${totalItems})`;
-            AppState.tg.MainButton.setText(buttonText);
-            AppState.tg.MainButton.setParams({
-                color: '#D4935A',
-                has_shine_effect: true,
-                text_color: '#FFFFFF'
-            });
+            const text = AppState.isFormVisible ? 'Надіслати' : `Кошик (${totalItems})`;
+            AppState.tg.MainButton.setText(text);
             AppState.tg.MainButton.show();
         } else {
             AppState.tg.MainButton.hide();
@@ -1066,33 +1332,24 @@ body {
     function updateUI() {
         renderProducts();
         updateCartControls();
-
         const totalItems = Object.values(AppState.cart).reduce((sum, item) => sum + item.quantity, 0);
         elements.cartCount.textContent = totalItems;
         elements.cartCount.classList.toggle('hidden', totalItems === 0);
-        
-        if(AppState.tg) {
-            updateMainButton();
-        }
+        if (AppState.tg) updateMainButton();
     }
 
     function showProductDetailsModal(title, description) {
         elements.modalTitle.textContent = title;
-        elements.modalBody.innerHTML = description.replace(/\n/g, '<br><br>');
+        elements.modalBody.innerHTML = description.replace(/\n/g, '<br>');
         elements.modal.classList.add('visible');
         AppState.tg?.BackButton.show();
     }
 
     function closeProductDetailsModal() {
         elements.modal.classList.remove('visible');
-        // Приховуємо кнопку "Назад" ТГ, тільки якщо не відкрита форма замовлення
-        if (!AppState.isFormVisible) {
-            AppState.tg?.BackButton.hide();
-        }
+        if (!AppState.isFormVisible) AppState.tg?.BackButton.hide();
     }
 
-    // --- ОБРОБНИКИ ПОДІЙ ---
-    // productHandler.js
     function handleProductClick(e) {
         const card = e.target.closest('.product-card');
         if (!card) return;
@@ -1105,86 +1362,47 @@ body {
             const action = e.target.closest('.quantity-btn').dataset.action;
             updateCart(productId, action);
         } else if (e.target.closest('.details-btn')) {
-            const detailsBtn = e.target.closest('.details-btn');
-            const title = detailsBtn.dataset.title;
-            const description = detailsBtn.dataset.description;
-            showProductDetailsModal(title, description);
+            const btn = e.target.closest('.details-btn');
+            showProductDetailsModal(btn.dataset.title, btn.dataset.description);
         }
     }
-    
-    // Promo
-    function closePromo() {
-        elements.promoSection.classList.add("promo-hide");
-        setTimeout(() => elements.promoSection.style.display = "none", 400);
-    }
-    
+
     function initEventListeners() {
-        // Cart & Order Form
         elements.cartBadge.addEventListener('click', () => {
             if (Object.keys(AppState.cart).length > 0) openOrderForm();
         });
         elements.changeOrderBtn?.addEventListener('click', closeOrderForm);
         elements.orderFormCloseBtn?.addEventListener('click', closeOrderForm);
-
-        // Search
         elements.searchInput.addEventListener('input', () => updateUI());
-
-        // Products
         elements.productList.addEventListener('click', handleProductClick);
-
-        // Delivery Options
-        elements.deliveryOptions.forEach(option => {
-            option.addEventListener('change', () => {
-                renderOrderSummary();
-                //toggleAddressField();
-            });
+        elements.deliveryOptions.forEach(opt => {
+            opt.addEventListener('change', renderOrderSummary);
         });
-
-        // Modal Handlers
         elements.modalCloseBtn.addEventListener('click', closeProductDetailsModal);
         elements.modal.addEventListener('click', (e) => {
-            if (e.target === elements.modal) {
-                closeProductDetailsModal();
-            }
+            if (e.target === elements.modal) closeProductDetailsModal();
+        });
+        elements.promoCloseBtn.addEventListener('click', () => {
+            elements.promoSection.style.display = 'none';
         });
 
-        // Promo Close
-        elements.promoCloseBtn.addEventListener('click', closePromo);
-
-        // Telegram WebApp Handlers
         if (AppState.tg) {
             AppState.tg.onEvent('backButtonClicked', () => {
-                if (elements.modal.classList.contains('visible')) {
-                    closeProductDetailsModal();
-                } else if (AppState.isFormVisible) {
-                    closeOrderForm();
-                }
+                if (elements.modal.classList.contains('visible')) closeProductDetailsModal();
+                else if (AppState.isFormVisible) closeOrderForm();
             });
             AppState.tg.onEvent('mainButtonClicked', () => {
-                if (!AppState.isFormVisible) {
-                    openOrderForm();
-                } else {
-                    submitOrder();
-                }
+                if (!AppState.isFormVisible) openOrderForm();
+                else submitOrder();
             });
         }
     }
 
-    // --- ІНІЦІАЛІЗАЦІЯ ---
     function initApp() {
-        console.log('🚀 Initializing Family Cheese app...');
         initializeTelegramWebApp();
         initEventListeners();
-        fetchUserData();
-        
-        loadProducts().then(() => {
-            updateUI();
-            console.log('✅ App initialized successfully');
-        });
+        loadProducts().then(() => updateUI());
     }
 
     document.addEventListener('DOMContentLoaded', initApp);
-
 </script>
-</body>
-</html>
