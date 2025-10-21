@@ -664,7 +664,7 @@ body {
     border-radius: 12px;
     padding: 1rem;
     margin-bottom: 1rem;
-    color: var(--text-secondary);
+    color: var(--success);
     font-size: 0.9rem;
     display: flex;
     align-items: center;
@@ -672,7 +672,7 @@ body {
 }
 
 .order-notice i {
-    color: var(--primary-color);
+    color: var(--success);
     font-size: 1.1rem;
     flex-shrink: 0;
 }
@@ -907,7 +907,7 @@ body {
 <body>
   <header class="header">
     <div class="header-content">
-        <div class="logo">🧀 Family</div>
+        <!-- <div class="logo">🧀 Family</div> -->
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
             <input type="text" class="search-input" placeholder="Пошук сирів..." id="search-input">
@@ -975,7 +975,7 @@ body {
             </div>
             <div class="about-text">
                 <h3>Сімейна справа з любов'ю</h3>
-                <p><strong>Family Cheese</strong> — невелика сімейна сироварня, де створюють натуральні сири за традиційними рецептами. Кожна головка — результат ручної праці, якісного молока та пристрасті до сироваріння.</p>
+                <p><strong>Family Cheese</strong> невелика сімейна сироварня, де створюють натуральні сири за традиційними рецептами. Кожна головка, результат ручної праці, якісного молока та пристрасті до сироваріння.</p>
             </div>
         </div>
     </div>
@@ -1364,6 +1364,11 @@ body {
         if (totalItems > 0) {
             const text = AppState.isFormVisible ? 'Надіслати' : `Кошик (${totalItems})`;
             AppState.tg.MainButton.setText(text);
+            AppState.tg.MainButton.setParams({
+                color: '#D4935A',
+                has_shine_effect: true,
+                text_color: '#FFFFFF'
+            });
             AppState.tg.MainButton.show();
         } else {
             AppState.tg.MainButton.hide();
